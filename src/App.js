@@ -1,23 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import SingUp from './components/authentication/SingUp/SingUp';
+import WhatsappConnection from './components/WhatsappConnection/WhatsappConnection';
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 function App() {
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+jdfkdjdjkjdd
+
+      <BrowserRouter>
+      <Link to="/sing-up">Sing up</Link>
+      <Link to="/whatsapp-connection">Whatsapp Connection</Link>
+        <Routes>
+            <Route path="sing-up" element={<SingUp />} />
+            <Route path="whatsapp-connection" element={<WhatsappConnection />} />
+            <Route path="*" element={<div>Hops ... Page not found</div>} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
