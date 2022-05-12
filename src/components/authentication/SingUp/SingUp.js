@@ -1,19 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from "./SingUp.module.scss";
 import { connect } from 'react-redux';
 import { singUp } from '../../../actions/authentication';
+import { useNavigate } from 'react-router-dom';
 
 
 const SingUp = props => {
 
+  let navigate = useNavigate();
   const [name, setName] = useState('');
   const [lestName, setLestName] = useState('');
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
 
+  useEffect(() => {
+    if (props.userData.signIn) {
+      navigate('/');
+    }
+  }, [props.userData.signIn]);
+
   const singUp = () => {
-    console.log('jfdjjk');
     if (password !== passwordConfirm) {
       alert('password and password confirm not match');
       return;
@@ -36,6 +43,8 @@ const SingUp = props => {
       lestName,
       mail,
       password,
+      phone: '0000000000',
+      token: '',
     });
   };
 
@@ -130,6 +139,8 @@ const SingUp = props => {
 
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    userData: state.userData,
+  }
 }
 export default connect(mapStateToProps, { singUp })(SingUp);
