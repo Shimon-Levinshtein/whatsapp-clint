@@ -13,10 +13,11 @@ const SingUp = props => {
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-
+  const [submited, setSubmited] = useState(false);
   useEffect(() => {
-    if (props.userData.signIn) {
+    if (props.userData.signIn && submited) {
       navigate('/');
+      setSubmited(false);
     }
   }, [props.userData.signIn]);
 
@@ -37,7 +38,7 @@ const SingUp = props => {
       alert('name and last name must be filled');
       return;
     }
-    
+
     props.singUp({
       name,
       lestName,
@@ -46,6 +47,7 @@ const SingUp = props => {
       phone: '0000000000',
       token: '',
     });
+    setSubmited(true);
   };
 
 
@@ -116,6 +118,8 @@ const SingUp = props => {
                         <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                           <button onClick={() => singUp()} type="button" className="btn btn-primary btn-lg">Register</button>
                         </div>
+                        <p className="small fw-bold mt-2 pt-1 mb-0">Already registered? <a onClick={() => navigate('/login')} href="#!"
+                          className="link-danger">Login</a></p>
 
                       </form>
 

@@ -6,6 +6,8 @@ const defaultState = {
         message: '',
         status: '',
     },
+    Loading: true,
+    nothing: '',
 };
 
 const variable = (state = defaultState, action) => {
@@ -13,7 +15,9 @@ const variable = (state = defaultState, action) => {
         case CHANGE_STATUS_POPUP:
             const newState = { ...state };
             newState[action.payload.type] = action.payload.yesOrNo;
-            newState[action.payload.typeText] = action.payload.text;
+            if (action.payload.typeText) {
+                newState[action.payload.typeText] = action.payload.text;
+            }
             return newState;
         default:
             return state;

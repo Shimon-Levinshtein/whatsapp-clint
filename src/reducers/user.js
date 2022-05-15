@@ -1,4 +1,4 @@
-import { SING_UP } from "../actions/authentication";
+import { LOGIN, SING_UP } from "../actions/authentication";
 
 const defaultState =  {
     userId: '',
@@ -20,9 +20,21 @@ const variable = (state = defaultState, action) => {
             newState.userToken = action.payload.token;
             newState.signIn = true;
             localStorage.setItem('userId', action.payload._id);
-            localStorage.setItem('userEmail', action.payload.name);
+            localStorage.setItem('userEmail', action.payload.mail);
             localStorage.setItem('userToken', action.payload.token);
             return newState;
+        case LOGIN:
+            const newStateB = { ...state };
+            newStateB.userId = action.payload._id;
+            newStateB.userName = action.payload.name;
+            newStateB.userEmail = action.payload.mail;
+            newStateB.userPhone = action.payload.phone;
+            newStateB.userToken = action.payload.token;
+            newStateB.signIn = true;
+            localStorage.setItem('userId', action.payload._id);
+            localStorage.setItem('userEmail', action.payload.mail);
+            localStorage.setItem('userToken', action.payload.token);
+            return newStateB;
         default:
             return state;
 

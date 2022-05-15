@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 import reducers from './reducers';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 // import io from "socket.io-client";
 
 // const socket = io.connect("http://10.0.2.122:3050");
@@ -18,7 +19,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     <React.StrictMode>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </React.StrictMode>
   </Provider>
 );
