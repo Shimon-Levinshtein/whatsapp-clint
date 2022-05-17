@@ -1,11 +1,20 @@
-import { CHANGE_QR_CODE } from "../actions/changeQrCode";
+import { CHANGE_QR_CODE, STATUS_WHATSAAP_CONECTION } from "../actions/changeQrCode";
 
-const defaultState =  '';
+const defaultState =  {
+    qrCode: '',
+    whatsappConnected: false,
+};
 
 const variable = (state = defaultState, action) => {
     switch (action.type) {
         case CHANGE_QR_CODE:
-            return action.payload;
+            const newState = { ...state };
+            newState.qrCode = action.payload;   
+            return newState;
+        case STATUS_WHATSAAP_CONECTION:
+            const newStateA = { ...state };
+            newStateA.whatsappConnected = action.payload;   
+            return newStateA;
         default:
             return state;
 

@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+.isMobile {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .isMobile {
+    display: block;
+  }
+}

@@ -5,6 +5,7 @@ import { CHANGE_STATUS_POPUP } from "./popupsHeandler";
 
 export const SING_UP = 'SING_UP';
 export const LOGIN = 'LOGIN';
+export const LOG_OUT = 'LOG_OUT';
 
 export const singUp = (obj) => {
     return async (dispatch) => {
@@ -74,4 +75,9 @@ export const loginRefresh = (obj, navigate) => {
                 navigate('/login');
             });
     }
+};
+export const logOut = () => {
+    return async (dispatch) => {
+        dispatch({ type: LOG_OUT, payload: {} });
+    };
 };

@@ -1,4 +1,4 @@
-import { LOGIN, SING_UP } from "../actions/authentication";
+import { LOGIN, LOG_OUT, SING_UP } from "../actions/authentication";
 
 const defaultState =  {
     userId: '',
@@ -35,6 +35,11 @@ const variable = (state = defaultState, action) => {
             localStorage.setItem('userEmail', action.payload.mail);
             localStorage.setItem('userToken', action.payload.token);
             return newStateB;
+        case LOG_OUT:
+            localStorage.setItem('userId', '');
+            localStorage.setItem('userEmail', '');
+            localStorage.setItem('userToken', '');
+            return defaultState;
         default:
             return state;
 
