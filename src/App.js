@@ -1,7 +1,7 @@
 import './App.css';
 import SingUp from './components/authentication/SingUp/SingUp';
 import WhatsappConnection from './components/WhatsappConnection/WhatsappConnection';
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import ErrorMessage from './components/templates/ErrorMessage/ErrorMessage';
 import { connect } from 'react-redux';
 import Login from './components/authentication/Login/Login';
@@ -12,19 +12,27 @@ import HomePage from './components/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
 import PopupMobile from './components/templates/PopupMobile/PopupMobile';
 import { changeStutusPopupByType } from './actions/popupsHeandler';
+import PopupMessage from './components/templates/PopupMessage/PopupMessage';
+import SendResetPassword from './components/authentication/SendResetPassword/SendResetPassword';
+import ChangePassword from './components/authentication/ChangePassword/ChangePassword';
 
 
 const App = props => {
-  let navigate = useNavigate();
-
+  
+  const navigate = useNavigate();
+  const location = useLocation();
   useEffect(() => {
     const token = localStorage.getItem('userToken');
     const mail = localStorage.getItem('userEmail');
     if (token && mail) {
       props.loginRefresh({ token, mail }, navigate);
     } else {
-      navigate('/login');
-      props.changeStutusPopupByType({ type: "Loading", yesOrNo: false });
+      if (location.pathname.split('/')[1] !== 'change-password') {
+        navigate('/login');
+        props.changeStutusPopupByType({ type: "Loading", yesOrNo: false });
+      } else {
+        props.changeStutusPopupByType({ type: "Loading", yesOrNo: false });
+      } 
     };
   }, []);
 
@@ -44,6 +52,7 @@ const App = props => {
     <div className="App">
       {props.popupControler.ErrorMessage && <ErrorMessage />}
       {props.popupControler.Loading && <Loading />}
+      {props.popupControler.PopupMessage && <PopupMessage />}
       <div className="isMobile">
         <PopupMobile />
       </div>
@@ -52,6 +61,9 @@ const App = props => {
         <Route exact path="/" element={<HomePage />} />
         <Route path="/sing-up" element={<SingUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/send-reset-password" element={<SendResetPassword />} />
+        {/* <Route path="/change-password" element={<ChangePassword />}/> */}
+        <Route path="/change-password/:mail/:resetToken" element={<ChangePassword />}/>
         <Route path="/whatsapp-connection" element={<WhatsappConnection />} />
         <Route path="*" element={<div>Hops ... Page not found</div>} />
       </Routes>

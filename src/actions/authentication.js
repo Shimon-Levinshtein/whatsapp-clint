@@ -76,8 +76,63 @@ export const loginRefresh = (obj, navigate) => {
             });
     }
 };
-export const logOut = () => {
+export const logOut = navigate => {
+    navigate('/login');
     return async (dispatch) => {
         dispatch({ type: LOG_OUT, payload: {} });
     };
+};
+export const sendResetPassword = (mail, navigate) => {
+    return async (dispatch) => {
+        dispatch({ type: CHANGE_STATUS_POPUP, payload: { type: "Loading", yesOrNo: true } });
+        axios.post('http://10.0.2.122:3050/users/send-reset-password', {
+            data: { mail: mail }
+        })
+            .then((response) => {
+                navigate('/login');
+                dispatch({ type: CHANGE_STATUS_POPUP, payload: { type: "Loading", yesOrNo: false } });
+            })
+            .catch(error => {
+                dispatch({ type: CHANGE_STATUS_POPUP, payload: { type: "Loading", yesOrNo: false } });
+                dispatch({
+                    type: CHANGE_STATUS_POPUP,
+                    payload: {
+                        type: 'ErrorMessage',
+                        yesOrNo: true,
+                        typeText: 'ErrorMessageText',
+                        text: {
+                            message: error.response.data.error,
+                            status: error.response.status,
+                        },
+                    }
+                });
+            });
+    }
+};
+export const changePassword = (obj, navigate) => {
+    return async (dispatch) => {
+        dispatch({ type: CHANGE_STATUS_POPUP, payload: { type: "Loading", yesOrNo: true } });
+        axios.post('http://10.0.2.122:3050/users/change-password', {
+            data: obj
+        })
+            .then((response) => {
+                navigate('/login');
+                dispatch({ type: CHANGE_STATUS_POPUP, payload: { type: "Loading", yesOrNo: false } });
+            })
+            .catch(error => {
+                dispatch({ type: CHANGE_STATUS_POPUP, payload: { type: "Loading", yesOrNo: false } });
+                dispatch({
+                    type: CHANGE_STATUS_POPUP,
+                    payload: {
+                        type: 'ErrorMessage',
+                        yesOrNo: true,
+                        typeText: 'ErrorMessageText',
+                        text: {
+                            message: error.response.data.error,
+                            status: error.response.status,
+                        },
+                    }
+                });
+            });
+    }
 };

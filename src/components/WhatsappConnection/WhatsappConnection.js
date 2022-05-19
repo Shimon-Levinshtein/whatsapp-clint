@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styles from "./WhatsappConnection.module.scss";
 import { connect } from 'react-redux';
-import { changeQrCode, changeStatusConection } from '../../actions/changeQrCode';
+import { changekeyQrData, changeQrCode, changeStatusConection, whatsappDisconnected } from '../../actions/changeQrCode';
 import QRCode from "react-qr-code";
 import { socket } from '../../socket/socketConnection';
 import { updateContacts } from '../../actions/whatsappData';
@@ -35,10 +35,11 @@ const WhatsappConnection = props => {
         props.updateContacts(data);
         navigate('/');
       });
-      
+
       socket.on(`on_whatsapp_disconnected_id:${props.userData.userId}`, data => {
         props.changeQrCode('');
         props.changeStatusConection(false);
+        props.whatsappDisconnected();
         console.log('on_whatsapp_disconnected_id:');
       });
       socket.on(`res_whatsapp_connection_status_id:${props.userData.userId}`, data => {
@@ -53,7 +54,13 @@ const WhatsappConnection = props => {
     }
   }, [props.userData.userId]);
 
-
+const requestQrCodeButton = () => {
+  socket.emit(`request_qr_code_id:${props.userData.userId}`, {});
+  props.changekeyQrData({
+    key: 'requestQrCode', 
+    value: false,
+  })
+}
   return (
     <div className={styles.continer} id='customer-quote'>
       <div className={styles.br_top}>
@@ -95,6 +102,11 @@ const WhatsappConnection = props => {
             {!props.qrCode.qrCode && <div className={styles.spinner}>
               <Spinner />
             </div>}
+            {props.qrCode.requestQrCode && <div className={styles.requestQrCode_box}>
+              <div onClick={() => requestQrCodeButton()} className={styles.requestQrCode_button}>
+                Try again
+              </div>
+            </div>}
           </div>
 
         </div>
@@ -110,4 +122,10 @@ const mapStateToProps = state => {
     userData: state.userData
   }
 }
-export default connect(mapStateToProps, { changeQrCode, updateContacts, changeStatusConection })(WhatsappConnection);
+export default connect(mapStateToProps, {
+  changeQrCode,
+  updateContacts,
+  changeStatusConection,
+  whatsappDisconnected,
+  changekeyQrData,
+})(WhatsappConnection);

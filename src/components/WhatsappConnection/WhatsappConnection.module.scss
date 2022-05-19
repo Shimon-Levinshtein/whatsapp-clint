@@ -58,6 +58,29 @@
           position: absolute;
           top: 0px;
         }
+        .requestQrCode_box {
+          height: 264px;
+          width: 264px;
+          background-color: rgb(128, 128, 128);
+          position: absolute;
+          top: 0px;
+          z-index: 2;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .requestQrCode_button {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 150px;
+            cursor: pointer;
+            font-weight: bold;
+            &:hover {
+              background-color: rgb(44, 183, 66);
+              color: white;
+            }
+          }
+        }
       }
       .qrCode_explanation {
         margin-right: 100px;

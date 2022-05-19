@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import styles from "./Footer.module.scss";
 import { connect } from 'react-redux';
-import { changeQrCode, changeStatusConection } from '../../actions/changeQrCode';
-import { updateContacts } from '../../actions/whatsappData';
 import { logOut } from '../../actions/authentication';
 import { socket } from '../../socket/socketConnection';
+import { changeStutusPopupByType } from '../../actions/popupsHeandler';
+import { useNavigate } from 'react-router-dom';
 
 
 const Footer = props => {
 
-  const [srartInterval, setSrartInterval] = useState(false);
+  const navigate = useNavigate();
 
+  const [srartInterval, setSrartInterval] = useState(false);
+  
   useEffect(() => {
     if (props.userData.signIn && props.userData.userId) {
       if (!srartInterval) {
         setSrartInterval(true);
-        console.log('useEffect----------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' + srartInterval);
         setInterval(() => {
           socket.emit(`check_interval_whatsapp_connection_status_id:${props.userData.userId}`, {});
         }, 10000);
@@ -31,6 +32,20 @@ const Footer = props => {
       //   props.changeQrCode('');
       //   navigate('/');
       // }
+    });
+    socket.on(`another_socket_we_enter_id:${props.userData.userId}`, data => {
+      console.log(`another_socket_we_enter_id:`);
+      props.changeStutusPopupByType({
+        type: 'PopupMessage',
+        yesOrNo: true,
+        typeText: 'PopupMessageData',
+        text: {
+          title: 'LOGOUT',
+          message: `Someone else has logged in, If it's not you, change your password from the Login page.`,
+          buttonText: 'Ok',
+        },
+      });
+      props.logOut(navigate);
     });
   }, []);
 
@@ -70,7 +85,7 @@ const Footer = props => {
             </ul>
             <div className="d-flex">
               {/* <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" /> */}
-              <button className="btn btn-outline-success" onClick={() => props.logOut()} >LOG OUT</button>
+              <button className="btn btn-outline-success" onClick={() => props.logOut(navigate)} >LOG OUT</button>
             </div>
           </div>
         </div>
@@ -86,4 +101,4 @@ const mapStateToProps = state => {
     userData: state.userData
   }
 }
-export default connect(mapStateToProps, { logOut })(Footer);
+export default connect(mapStateToProps, { logOut, changeStutusPopupByType })(Footer);

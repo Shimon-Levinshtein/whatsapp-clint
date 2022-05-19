@@ -1,0 +1,11 @@
+.continer {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: gray;
+  z-index: 9000;
+  padding: 10vw;
+}

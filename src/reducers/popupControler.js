@@ -8,6 +8,12 @@ const defaultState = {
     },
     Loading: true,
     nothing: '',
+    PopupMessage: false,
+    PopupMessageData: {
+        title:  '',
+        message: '',
+        buttonText: '',
+    },
 };
 
 const variable = (state = defaultState, action) => {
