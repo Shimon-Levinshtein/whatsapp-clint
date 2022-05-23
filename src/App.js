@@ -16,6 +16,8 @@ import PopupMessage from './components/templates/PopupMessage/PopupMessage';
 import SendResetPassword from './components/authentication/SendResetPassword/SendResetPassword';
 import ChangePassword from './components/authentication/ChangePassword/ChangePassword';
 import CreateEvent from './components/CreateEvent/CreateEvent';
+import { loadWhatsAppData } from './socket/LoadWhatsAppData';
+import { updateContacts } from './actions/whatsappData';
 
 
 const App = props => {
@@ -45,6 +47,11 @@ const App = props => {
     //   navigate('/login');
     // };
   }, [navigate, props.userData.userId, props.qrCode.whatsappConnected]);
+  useEffect(() => {
+    if (props.qrCode.whatsappConnected && props.userData.userId) {
+      loadWhatsAppData(props.userData.userId, props);
+    };
+  }, [props.userData.userId, props.qrCode.whatsappConnected]);
 
   
 
@@ -80,4 +87,4 @@ const mapStateToProps = state => {
     userData: state.userData
   }
 }
-export default connect(mapStateToProps, { loginRefresh, changeStutusPopupByType })(App);
+export default connect(mapStateToProps, { loginRefresh, changeStutusPopupByType, updateContacts })(App);

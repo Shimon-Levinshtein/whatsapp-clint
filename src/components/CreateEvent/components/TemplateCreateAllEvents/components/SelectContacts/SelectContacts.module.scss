@@ -1,0 +1,53 @@
+.continer {
+  position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .continer_box {
+     position: relative;
+     background-color: white;
+     border-radius: 15px;
+     padding: 25px;
+     .select_all_box {
+       display: flex;
+       align-items: center;
+       margin-bottom: 30px;
+       input {
+         margin-right: 15px;
+       }
+       .select_all_box_left {
+         font-weight: bold;
+       }
+     }
+     .contacts_list {
+        max-height: 80vh;
+        overflow-y: auto;
+        padding-right: 10px;
+
+        .contacts_list_item {
+          display: flex;
+          align-items: center;
+
+          input {
+            margin-right: 10px;
+          }
+          .contacts_list_item_name {
+            width: 200px;
+            text-align: left;
+            margin-right: 5px;
+          }
+          .contacts_list_item_number {
+            width: 120px;
+            text-align: right;
+          }
+        }
+     }
+    }
+}
+

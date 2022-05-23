@@ -28,11 +28,10 @@ const WhatsappConnection = props => {
         props.changeQrCode(data.qrCode);
       });
 
-      socket.on(`on_whatsapp_connected_id:${props.userData.userId}`, data => {
+      socket.on(`on_whatsapp_connected_id:${props.userData.userId}`, () => {
         console.log('on_whatsapp_connected_id:');
         props.changeStatusConection(true);
         props.changeQrCode('');
-        props.updateContacts(data);
         navigate('/');
       });
 
