@@ -62,7 +62,7 @@ const requestQrCodeButton = () => {
   })
 }
   return (
-    <div className={styles.continer} id='customer-quote'>
+    <div className={styles.continer}>
       <div className={styles.br_top}>
         <div className={styles.br_top_content}>
           <div className={styles.title_top}>

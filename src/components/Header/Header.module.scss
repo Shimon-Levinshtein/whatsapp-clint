@@ -1,0 +1,12 @@
+.continer {
+  .ul_style {
+    --bs-scroll-height: 100px;
+  }
+  a {
+    cursor: pointer;
+  }
+  .active_top_tab {
+    color: rgb(44, 183, 66) !important;
+    // font-weight: bold;
+  }
+}

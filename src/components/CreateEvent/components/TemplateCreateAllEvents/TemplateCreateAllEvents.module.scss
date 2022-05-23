@@ -1,0 +1,16 @@
+.continer {
+    .top_title_continer {
+        background-color: rgb(44, 183, 66);
+        width: 100vw;
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: white;
+        padding: 50px;
+        p {
+            font-size: 23px;
+            margin-bottom: 10px;
+        }
+    }
+}

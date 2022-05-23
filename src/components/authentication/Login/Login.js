@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = props => {
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
   const [submited, setSubmited] = useState(false);

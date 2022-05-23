@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import "./ChangePassword.scss";
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { changePassword } from '../../../actions/authentication';
 
 
 const ChangePassword = props => {
+
+  const navigate = useNavigate();
+
   const { mail, resetToken } = useParams()
 
   const [password, setPassword] = useState('');
@@ -24,7 +27,7 @@ const ChangePassword = props => {
       mail,
       resetToken,
       password,
-    });
+    }, navigate);
   };
 
 

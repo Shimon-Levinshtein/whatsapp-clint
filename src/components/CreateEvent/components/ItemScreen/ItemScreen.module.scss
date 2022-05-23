@@ -1,0 +1,42 @@
+.continer {
+  margin: 5vw;
+  .box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    .left {
+      h3 {
+        text-align: left;
+        color: gray;
+        margin-bottom: 20px;
+      }
+      p {
+        text-align: left;
+        white-space:pre;
+        margin-bottom: 0px;
+      }
+    }
+    .right {
+      min-width: 140px;
+      display: flex;
+      justify-content: right;
+      align-items: flex-end;
+      a {
+        background-color: rgb(44, 183, 66);
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+        border: 1px solid rgb(44, 183, 66);
+        min-width: 140px;
+        &:hover {
+          background-color: rgb(255, 255, 255);
+          color: rgb(44, 183, 66);
+        }
+      }
+    }
+  }
+}

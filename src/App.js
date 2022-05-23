@@ -9,12 +9,13 @@ import { useEffect } from 'react';
 import Loading from './components/templates/Loading/Loading';
 import { loginRefresh } from './actions/authentication';
 import HomePage from './components/HomePage/HomePage';
-import Footer from './components/Footer/Footer';
+import Header from './components/Header/Header';
 import PopupMobile from './components/templates/PopupMobile/PopupMobile';
 import { changeStutusPopupByType } from './actions/popupsHeandler';
 import PopupMessage from './components/templates/PopupMessage/PopupMessage';
 import SendResetPassword from './components/authentication/SendResetPassword/SendResetPassword';
 import ChangePassword from './components/authentication/ChangePassword/ChangePassword';
+import CreateEvent from './components/CreateEvent/CreateEvent';
 
 
 const App = props => {
@@ -56,13 +57,13 @@ const App = props => {
       <div className="isMobile">
         <PopupMobile />
       </div>
-      {props.userData.signIn && <Footer />}
+      {props.userData.signIn && <Header />}
       <Routes>
         <Route exact path="/" element={<HomePage />} />
         <Route path="/sing-up" element={<SingUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/create-event/*" element={<CreateEvent />} />
         <Route path="/send-reset-password" element={<SendResetPassword />} />
-        {/* <Route path="/change-password" element={<ChangePassword />}/> */}
         <Route path="/change-password/:mail/:resetToken" element={<ChangePassword />}/>
         <Route path="/whatsapp-connection" element={<WhatsappConnection />} />
         <Route path="*" element={<div>Hops ... Page not found</div>} />
