@@ -32,7 +32,7 @@ const CreateEvent = props => {
             <div className={styles.right_continer} >
               <div className={styles.event_box} >
                 {dataSceens[screenOpen].map((item, index) => (
-                  <ItemScreen key={index} group={screenOpen} indexId={index} title={item.title} description={item.description} path={item.path} />
+                  <ItemScreen key={index} group={screenOpen} indexId={index} title={item.title} description={item.description} path={item.path} type={item.type} />
                 ))}
               </div>
             </div>

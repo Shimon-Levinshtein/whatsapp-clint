@@ -74,7 +74,23 @@
         }
       }
       .inputs_box_right_bottom {
-
+        margin-top: 50px;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+        border: 1px solid rgb(44, 183, 66);
+        min-width: 140px;
+        width: 100%;
+        cursor: pointer;
+        background-color: rgb(255, 255, 255);
+        color: rgb(44, 183, 66);
+        &:hover {
+          background-color: rgb(44, 183, 66);
+          color: white;
+        }
       }
     }
   }

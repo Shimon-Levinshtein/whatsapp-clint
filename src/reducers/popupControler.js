@@ -14,6 +14,12 @@ const defaultState = {
         message: '',
         buttonText: '',
     },
+    PopupSucceeded: false,
+    PopupSucceededData: {
+        title:  '',
+        message: '',
+        buttonText: '',
+    },
 };
 
 const variable = (state = defaultState, action) => {

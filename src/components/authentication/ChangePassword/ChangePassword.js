@@ -34,22 +34,22 @@ const ChangePassword = props => {
 
   return (
     <div className='ChangePassword-continer'>
-      <div class="card login-form">
-        <div class="card-body">
-          <h3 class="card-title text-center">Change password</h3>
-          <div class="card-text">
+      <div className="card login-form">
+        <div className="card-body">
+          <h3 className="card-title text-center">Change password</h3>
+          <div className="card-text">
             <form>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="exampleInputEmail1">Your new password</label>
-                <input value={password} onChange={e => setPassword(e.target.value)} type="password" class="form-control form-control-sm" />
+                <input value={password} onChange={e => setPassword(e.target.value)} type="password" className="form-control form-control-sm" />
               </div>
               <br />
-              <div class="form-group">
+              <div className="form-group">
                 <label for="exampleInputEmail1">Repeat password</label>
-                <input value={passwordConfirm} onChange={e => setPasswordConfirm(e.target.value)} type="password" class="form-control form-control-sm" />
+                <input value={passwordConfirm} onChange={e => setPasswordConfirm(e.target.value)} type="password" className="form-control form-control-sm" />
               </div>
               <br />
-              <div onClick={() => changePassword()} class="btn btn-primary btn-block submit-btn">Confirm</div>
+              <div onClick={() => changePassword()} className="btn btn-primary btn-block submit-btn">Confirm</div>
             </form>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { LOGIN, LOG_OUT, SING_UP } from "../actions/authentication";
 
-const defaultState =  {
+const defaultState = {
     userId: '',
     userName: '',
     userEmail: '',

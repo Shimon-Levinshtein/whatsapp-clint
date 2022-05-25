@@ -18,10 +18,13 @@ import ChangePassword from './components/authentication/ChangePassword/ChangePas
 import CreateEvent from './components/CreateEvent/CreateEvent';
 import { loadWhatsAppData } from './socket/LoadWhatsAppData';
 import { updateContacts } from './actions/whatsappData';
+import PopupSucceeded from './components/templates/PopupSucceeded/PopupSucceeded';
+import UserEvents from './components/UserEvents/UserEvents';
+import { getUserEvents } from './actions/events';
 
 
 const App = props => {
-  
+
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
@@ -35,7 +38,7 @@ const App = props => {
         props.changeStutusPopupByType({ type: "Loading", yesOrNo: false });
       } else {
         props.changeStutusPopupByType({ type: "Loading", yesOrNo: false });
-      } 
+      }
     };
   }, []);
 
@@ -43,17 +46,15 @@ const App = props => {
     if (!props.qrCode.whatsappConnected && props.userData.userId) {
       navigate('/whatsapp-connection');
     };
-    // if (!props.userData.userId || !props.userData.signIn) {
-    //   navigate('/login');
-    // };
   }, [navigate, props.userData.userId, props.qrCode.whatsappConnected]);
   useEffect(() => {
     if (props.qrCode.whatsappConnected && props.userData.userId) {
       loadWhatsAppData(props.userData.userId, props);
+      props.getUserEvents();
     };
   }, [props.userData.userId, props.qrCode.whatsappConnected]);
 
-  
+
 
 
   return (
@@ -61,6 +62,8 @@ const App = props => {
       {props.popupControler.ErrorMessage && <ErrorMessage />}
       {props.popupControler.Loading && <Loading />}
       {props.popupControler.PopupMessage && <PopupMessage />}
+      {props.popupControler.PopupSucceeded && <PopupSucceeded />}
+      {/* <PopupSucceeded /> */}
       <div className="isMobile">
         <PopupMobile />
       </div>
@@ -69,10 +72,11 @@ const App = props => {
         <Route exact path="/" element={<HomePage />} />
         <Route path="/sing-up" element={<SingUp />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/create-event/*" element={<CreateEvent />} />
         <Route path="/send-reset-password" element={<SendResetPassword />} />
-        <Route path="/change-password/:mail/:resetToken" element={<ChangePassword />}/>
+        <Route path="/change-password/:mail/:resetToken" element={<ChangePassword />} />
         <Route path="/whatsapp-connection" element={<WhatsappConnection />} />
+        <Route path="/create-event/*" element={<CreateEvent />} />
+        <Route path="/my-events/" element={<UserEvents />} />
         <Route path="*" element={<div>Hops ... Page not found</div>} />
       </Routes>
     </div>
@@ -87,4 +91,9 @@ const mapStateToProps = state => {
     userData: state.userData
   }
 }
-export default connect(mapStateToProps, { loginRefresh, changeStutusPopupByType, updateContacts })(App);
+export default connect(mapStateToProps, {
+  loginRefresh,
+  changeStutusPopupByType,
+  updateContacts,
+  getUserEvents,
+})(App);

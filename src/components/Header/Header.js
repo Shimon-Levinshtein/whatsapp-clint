@@ -70,7 +70,9 @@ const Header = props => {
               </li>
             </ul>}
             <div className="d-flex">
-              {/* <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" /> */}
+              <div className={styles.display_user}>
+                {props.userData.userEmail}
+              </div>
               <button className="btn btn-outline-success" onClick={() => props.logOut(navigate)} >LOG OUT</button>
             </div>
           </div>

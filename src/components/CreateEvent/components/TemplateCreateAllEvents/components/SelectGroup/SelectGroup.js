@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import styles from "./SelectContacts.module.scss";
+import styles from "./SelectGroup.module.scss";
 import { connect } from 'react-redux';
 import ButtonClose from '../../../../../templates/ButtonClose/ButtonClose';
 
 
-const SelectContacts = props => {
+const SelectGroup = props => {
 
   const [selectedAllContacts, setSelectedAllContacts] = useState(false);
 
@@ -15,54 +15,53 @@ const SelectContacts = props => {
     if (!selectedAllContacts) {
       const contactsList = [];
       props.whatsappData.contacts.forEach(item => {
-        if (item.isUser) {
+        if (item.isGroup) {
           contactsList.push({ name: item.name ? item.name : 'Not a contact', number: item.number });
         }
       })
-      props.setContactsList(contactsList);
+      props.setGroupList(contactsList);
       setSelectedAllContacts(true);
     } else {
-      props.setContactsList([]);
+      props.setGroupList([]);
       setSelectedAllContacts(false);
     };
   };
 
 
   const handleSelectContact = (contact, yasOrNo) => {
-    const newContactsList = [...props.contactsList];
+    const newContactsList = [...props.groupList];
     if (!yasOrNo) {
-      newContactsList.push({ name: contact.name ? contact.name : 'Not a contact', number: contact.number });
+      newContactsList.push({ name: contact.name , number: contact.number });
     } else {
       let index;
-      props.contactsList.forEach((item, indexS) => {
-        if (item.number === contact.number) {
+      props.groupList.forEach((item, indexS) => {
+        if (item.name === contact.name) {
           index = indexS
         };
       });
       newContactsList.splice(index, 1);
     };
-    props.setContactsList(newContactsList);
+    props.setGroupList(newContactsList);
   };
-
   return (
     <div className={styles.continer}>
       <div className={styles.continer_box}>
-        <ButtonClose close={props.setOpenContacts} />
+        <ButtonClose close={props.setOpenGroup} />
         <div className={styles.select_all_box}>
           <input checked={selectedAllContacts} type="checkbox" onChange={() => onChangeSelectAll()} />
           <div className={styles.select_all_box_left}>
-            Select All ({props.contactsList.length})
+            Select All ({props.groupList.length})
           </div>
         </div>
         <div className={styles.contacts_list}>
           {props.whatsappData.contacts.map((item, index) => {
-            if (item.isUser) {
+            if (item.isGroup) {
               return (
                 <div key={index}>
                   <div className={styles.contacts_list_item}>
                     <input
-                      checked={props.contactsList.some(a => a.number === item.number)}
-                      onChange={() => handleSelectContact(item, props.contactsList.some(a => a.number === item.number))}
+                      checked={props.groupList.some(a => a.name === item.name)}
+                      onChange={() => handleSelectContact(item, props.groupList.some(a => a.name === item.name))}
                       type="checkbox" />
                     <div className={styles.contacts_list_item_name}>{item.name ? item.name : 'Not a contact'} </div>
                     <div className={styles.contacts_list_item_number}>{item.number}</div>
@@ -86,4 +85,4 @@ const mapStateToProps = state => {
     whatsappData: state.whatsappData,
   }
 }
-export default connect(mapStateToProps, {})(SelectContacts);
+export default connect(mapStateToProps, {})(SelectGroup);
