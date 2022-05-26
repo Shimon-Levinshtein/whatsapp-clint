@@ -8,19 +8,19 @@ exports.dataSceens = {
       type: 'messageByDate',
       data: [
         'date',
-        'dayInMonth',
-        'dayInWeek',
+        'time',
+        'contacts',
+        'group',
+        'message',
       ],
     },
     {
       path: 'every-month-by-day',
       title: 'Every month by day',
-      description: 'Send a message once on a specific date, \noption by contact or group or all.',
-      type: '',
+      description: 'Send a message once on a specific date every month, \noption by contact or group or all.',
+      type: 'EveryMonthByDayInMonth',
       data: [
-        'date',
-        'dayInMonth',
-        'dayInWeek',
+
       ],
     },
   ],
@@ -31,9 +31,7 @@ exports.dataSceens = {
       description: 'Reply a message by text received, \noption by contact or group or all.',
       type: '',
       data: [
-        'date',
-        'dayInMonth',
-        'dayInWeek',
+
       ],
     },
   ],

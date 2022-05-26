@@ -12,7 +12,7 @@ const UserEvents = props => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  
+  console.log(props.userEvents);
   useEffect(() => {
     const userEvents = [...props.userEvents];
     userEvents.reverse();

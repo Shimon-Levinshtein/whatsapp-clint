@@ -10,12 +10,20 @@ import DisplayContacts from './components/DisplayContacts/DisplayContacts';
 import SelectGroup from './components/SelectGroup/SelectGroup';
 import { createEventByType } from '../../../../actions/events';
 
+const displayDisplaybyType = {
+  date: false,
+  time: false,
+  contacts: false,
+  group: false,
+  message: false,
+}
 
 const TemplateCreateAllEvents = props => {
   const navigate = useNavigate();
   const { group, indexId } = useParams();
   const data = dataSceens[group][indexId];
 
+  const [displaybyType, setDisplaybyType] = useState(displayDisplaybyType);
   const [openContacts, setOpenContacts] = useState(false);
   const [contactsList, setContactsList] = useState([]);
 
@@ -27,16 +35,27 @@ const TemplateCreateAllEvents = props => {
 
   const [date, setDate] = useState(new Date());
 
+
+  useEffect(() => {
+    const newDisplaybyType = { ...displayDisplaybyType };
+    data.data.forEach(item => {
+      newDisplaybyType[item] = true;
+    });
+    setDisplaybyType(newDisplaybyType);
+  }, [group, indexId]);
+
   const saveEvent = () => {
+    const eventData = {};
+    if (displaybyType.date || displaybyType.time) eventData.date = date;
+    if (displaybyType.contacts) eventData.contactsList = contactsList;
+    if (displaybyType.group) eventData.groupList = groupList;
+    if (displaybyType.message) eventData.message = message;
     props.createEventByType({
       eventTitle: data.title,
-      eventDescription: data.Description,
-      eventName: eventName,
+      eventDescription: data.description,
       type: data.type,
-      contactsList: contactsList,
-      groupList: groupList,
-      message: message,
-      date: date,
+      eventName: eventName,
+      ...eventData 
     }, navigate);
   };
 
@@ -52,17 +71,18 @@ const TemplateCreateAllEvents = props => {
             <label>Event name</label>
             <input type="text" value={eventName} onChange={(e) => setEventName(e.target.value)} />
           </div>
-          <div className={styles.input_continer}>
+          {displaybyType.message && <div className={styles.input_continer}>
             <label>Message</label>
             <textarea type="text" value={message} onChange={(e) => setMessage(e.target.value)} />
-          </div>
-          <GetDate value={date} setDate={setDate} />
-          <GetTime value={date} setTime={setDate} />
+          </div>}
+          {displaybyType.date && <GetDate value={date} setDate={setDate} />}
+          {displaybyType.time && <GetTime value={date} setTime={setDate} />}
+          
         </div>
         <div className={styles.hr} />
         <div className={styles.inputs_box_right}>
           <div className={styles.inputs_box_right_top}>
-            <div className={styles.contacts_box}>
+           {displaybyType.contacts && <div className={styles.contacts_box}>
               <div onClick={() => setOpenContacts(true)} className={styles.contacts_button}>
                 Select Contacts
               </div>
@@ -70,10 +90,10 @@ const TemplateCreateAllEvents = props => {
                 <DisplayContacts contactsList={contactsList} />
               </div>
               {openContacts && <SelectContacts setOpenContacts={setOpenContacts} contactsList={contactsList} setContactsList={setContactsList} />}
-            </div>
+            </div>}
             <br />
             <br />
-            <div className={styles.contacts_box}>
+            {displaybyType.group && <div className={styles.contacts_box}>
               <div onClick={() => setOpenGroup(true)} className={styles.contacts_button}>
                 Select Groups
               </div>
@@ -81,7 +101,7 @@ const TemplateCreateAllEvents = props => {
                 <DisplayContacts contactsList={groupList} />
               </div>
               {openGroup && <SelectGroup setOpenGroup={setOpenGroup} groupList={groupList} setGroupList={setGroupList} />}
-            </div>
+            </div>}
           </div>
           <div onClick={() => saveEvent()} className={styles.inputs_box_right_bottom}>
             CREATE

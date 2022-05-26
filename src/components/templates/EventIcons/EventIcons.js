@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ImCalendar } from "react-icons/im";
 import { ImQuestion } from "react-icons/im";
+import { RiCalendarEventLine } from "react-icons/ri";
 
 
 const EventIcons = props => {
@@ -10,6 +11,8 @@ const EventIcons = props => {
     switch (icon) {
       case "messageByDate":
         return <ImCalendar />;
+      case "EveryMonthByDayInMonth":
+        return <RiCalendarEventLine />;
       default:
         return <ImQuestion />;
     }

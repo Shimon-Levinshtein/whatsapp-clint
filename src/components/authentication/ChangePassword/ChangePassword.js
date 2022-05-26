@@ -9,7 +9,7 @@ const ChangePassword = props => {
 
   const navigate = useNavigate();
 
-  const { mail, resetToken } = useParams()
+  const { mail, resetToken } = useParams();
 
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');

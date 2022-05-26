@@ -4,10 +4,15 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import EventIcons from '../../templates/EventIcons/EventIcons';
+import { deleteEvent } from '../../../actions/events';
 
 
 const SingleEvent = props => {
-  console.log(props);
+  
+  const deleteEvent = () => {
+    props.deleteEvent(props._id);
+  };
+
   return (
     <div className={styles.continer}>
       <div className={styles.box}>
@@ -16,7 +21,7 @@ const SingleEvent = props => {
           <div className={styles.left_box_text}>
             <h3>{props.data.eventName}</h3>
             {props.data.eventTitle && <p><b>Event type: </b>{props.data.eventTitle}</p>}
-            {props.data.eventTitle && <p><b>Event type: </b>{props.data.eventTitle}</p>}
+            {props.data.eventDescription && <p><b>Event Description: </b>{props.data.eventDescription}</p>}
             {props.data.message && <p><b>Message: </b>{props.data.message}</p>}
             {props.data.date && <p><b>Date: </b>{moment(props.data.date).format('D/M/Y h:mm:ss')}</p>}
             {props.data.contactsList?.length > 0 && <p><b>Contacts: </b>{props.data.contactsList.length}</p>}
@@ -25,7 +30,7 @@ const SingleEvent = props => {
         </div>
         <div className={styles.right}>
           <div className={styles.edit_button} >Edit</div>
-          <div className={styles.delete_button} >delete</div>
+          <div onClick={() => deleteEvent()} className={styles.delete_button} >delete</div>
         </div>
       </div>
       <hr />
@@ -37,4 +42,4 @@ const SingleEvent = props => {
 const mapStateToProps = state => {
   return {}
 }
-export default connect(mapStateToProps, {})(SingleEvent);
+export default connect(mapStateToProps, { deleteEvent })(SingleEvent);

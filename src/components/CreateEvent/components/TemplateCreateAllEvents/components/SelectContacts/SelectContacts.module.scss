@@ -1,53 +1,74 @@
 .continer {
   position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 99999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .continer_box {
-     position: relative;
-     background-color: white;
-     border-radius: 15px;
-     padding: 25px;
-     .select_all_box {
-       display: flex;
-       align-items: center;
-       margin-bottom: 30px;
-       input {
-         margin-right: 15px;
-       }
-       .select_all_box_left {
-         font-weight: bold;
-       }
-     }
-     .contacts_list {
-        max-height: 80vh;
-        overflow-y: auto;
-        padding-right: 10px;
-
-        .contacts_list_item {
-          display: flex;
-          align-items: center;
-
-          input {
-            margin-right: 10px;
-          }
-          .contacts_list_item_name {
-            width: 200px;
-            text-align: left;
-            margin-right: 5px;
-          }
-          .contacts_list_item_number {
-            width: 120px;
-            text-align: right;
-          }
-        }
-     }
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .continer_box {
+    position: relative;
+    background-color: white;
+    border-radius: 15px;
+    padding: 25px;
+    .select_all_box {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      input {
+        margin-right: 15px;
+      }
+      .select_all_box_left {
+        font-weight: bold;
+      }
     }
-}
+    .search_input_div input[type="text"] {
+      margin-top: 10px;
+      width: 120px;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      background-color: white;
+      background-image: url("searchicon.png");
+      background-position: 10px 10px;
+      background-repeat: no-repeat;
+      padding: 12px 20px 12px 40px;
+      -webkit-transition: width 0.4s ease-in-out;
+      transition: width 0.4s ease-in-out;
+      border-radius: 20px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        margin-bottom: 25px;
+    }
+    .search_input_div input[type="text"]:focus {
+      width: 100%;
+    }
+    .contacts_list {
+      height: 70vh;
+      overflow-y: auto;
+      padding-right: 10px;
 
+      .contacts_list_item {
+        display: flex;
+        align-items: center;
+
+        input {
+          margin-right: 10px;
+        }
+        .contacts_list_item_name {
+          width: 200px;
+          text-align: left;
+          margin-right: 5px;
+        }
+        .contacts_list_item_number {
+          width: 120px;
+          text-align: right;
+        }
+      }
+    }
+  }
+}

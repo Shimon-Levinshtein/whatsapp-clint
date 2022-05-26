@@ -5,9 +5,37 @@ import { authAxios } from "../authAxios";
 
 export const GAT_ALL_USER_EVENTS = 'GAT_ALL_USER_EVENTS';
 export const CREATE_EVETE_BY_TY = 'CREATE_EVETE_BY_TY';
+export const DELETE_EVETE = 'DELETE_EVETE';
 
 
 const serverUrl = process.env.REACT_APP_SERVER_URL;
+
+export const getUserEvents = () => {
+    return async (dispatch) => {
+        dispatch({ type: CHANGE_STATUS_POPUP, payload: { type: "Loading", yesOrNo: true } });
+        authAxios().get(`/events/get-user-events`)
+            .then((response) => {
+                dispatch({ type: GAT_ALL_USER_EVENTS, payload: response.data });
+                dispatch({ type: CHANGE_STATUS_POPUP, payload: { type: "Loading", yesOrNo: false } });
+            })
+            .catch(error => {
+                console.log(error);
+                dispatch({ type: CHANGE_STATUS_POPUP, payload: { type: "Loading", yesOrNo: false } });
+                dispatch({
+                    type: CHANGE_STATUS_POPUP,
+                    payload: {
+                        type: 'ErrorMessage',
+                        yesOrNo: true,
+                        typeText: 'ErrorMessageText',
+                        text: {
+                            message: error.response.data.error,
+                            status: error.response.status,
+                        },
+                    }
+                });
+            });
+    }
+};
 
 export const createEventByType = (obj, navigate) => {
     return async (dispatch) => {
@@ -25,9 +53,9 @@ export const createEventByType = (obj, navigate) => {
                         yesOrNo: true,
                         typeText: 'PopupSucceededData',
                         text: {
-                          title: 'Awesome!',
-                          message: 'Your event has been saved successfully, you can check all your Evnts on the "My Events" page.',
-                          buttonText: 'OK',
+                            title: 'Awesome!',
+                            message: 'Your event has been saved successfully, you can check all your Evnts on the "My Events" page.',
+                            buttonText: 'OK',
                         },
                     }
                 });
@@ -52,17 +80,16 @@ export const createEventByType = (obj, navigate) => {
             });
     }
 };
-export const getUserEvents = () => {
+export const deleteEvent = (eventId) => {
     return async (dispatch) => {
-        dispatch({ type: CHANGE_STATUS_POPUP, payload: { type: "Loading", yesOrNo: true } });
-        authAxios().get(`/events/get-user-events`)
-            .then((response) => {
-                dispatch({ type: GAT_ALL_USER_EVENTS, payload: response.data });
-                dispatch({ type: CHANGE_STATUS_POPUP, payload: { type: "Loading", yesOrNo: false } });
+        authAxios().post(`/events/delete-event`, {
+            data: eventId
+        })
+            .then(() => {
+                dispatch({ type: DELETE_EVETE, payload: eventId });
             })
             .catch(error => {
                 console.log(error);
-                dispatch({ type: CHANGE_STATUS_POPUP, payload: { type: "Loading", yesOrNo: false } });
                 dispatch({
                     type: CHANGE_STATUS_POPUP,
                     payload: {
