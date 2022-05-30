@@ -105,3 +105,8 @@ export const deleteEvent = (eventId) => {
             });
     }
 };
+export const deleteEventLocal = (eventId) => {
+    return async (dispatch) => {
+        dispatch({ type: DELETE_EVETE, payload: eventId });
+    }
+};

@@ -20,11 +20,11 @@ import { loadWhatsAppData } from './socket/LoadWhatsAppData';
 import { updateContacts } from './actions/whatsappData';
 import PopupSucceeded from './components/templates/PopupSucceeded/PopupSucceeded';
 import UserEvents from './components/UserEvents/UserEvents';
-import { getUserEvents } from './actions/events';
+import { deleteEventLocal, getUserEvents } from './actions/events';
 
 
 const App = props => {
-
+  
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
@@ -63,7 +63,6 @@ const App = props => {
       {props.popupControler.Loading && <Loading />}
       {props.popupControler.PopupMessage && <PopupMessage />}
       {props.popupControler.PopupSucceeded && <PopupSucceeded />}
-      {/* <PopupSucceeded /> */}
       <div className="isMobile">
         <PopupMobile />
       </div>
@@ -96,4 +95,5 @@ export default connect(mapStateToProps, {
   changeStutusPopupByType,
   updateContacts,
   getUserEvents,
+  deleteEventLocal,
 })(App);

@@ -5,6 +5,7 @@ import { logOut } from '../../actions/authentication';
 import { socket } from '../../socket/socketConnection';
 import { changeStutusPopupByType } from '../../actions/popupsHeandler';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { changeQrCode, changeStatusConection } from '../../actions/changeQrCode';
 
 
 const Header = props => {
@@ -13,26 +14,30 @@ const Header = props => {
 
   const [srartInterval, setSrartInterval] = useState(false);
 
+  // useEffect(() => {
+  //   if (props.userData.signIn && props.userData.userId) {
+  //     if (!srartInterval) {
+  //       setSrartInterval(true);
+  //       setInterval(() => {
+  //        try {
+  //          socket.emit(`check_interval_whatsapp_connection_status_id:${props.userData.userId}`, {})
+  //        } catch (error) {
+  //         console.log(error);
+  //        }
+  //       }, 3000);
+  //     }
+  //   }
+  // }, [props.userData.userId]);
+  
   useEffect(() => {
-    if (props.userData.signIn && props.userData.userId) {
-      if (!srartInterval) {
-        setSrartInterval(true);
-        setInterval(() => {
-          socket.emit(`check_interval_whatsapp_connection_status_id:${props.userData.userId}`, {});
-        }, 10000);
-      }
-    }
-  }, [props.userData.userId]);
-
-  useEffect(() => {
-    socket.on(`res_interval_whatsapp_connection_status_id:${props.userData.userId}`, data => {
-      console.log('Footer_whatsapp_connection_status: ' + data.status);
-      // if (data.status) {
-      //   props.changeStatusConection(true);
-      //   props.changeQrCode('');
-      //   navigate('/');
-      // }
-    });
+    // socket.on(`res_interval_whatsapp_connection_status_id:${props.userData.userId}`, data => {
+    //   console.log('res_interval_whatsapp_connection_status_id: ' + data.status);
+    //   if (!data.status && props.userData.whatsappConnected) {
+    //     props.changeStatusConection(true);
+    //     props.changeQrCode('');
+    //     navigate('/whatsapp-connection');
+    //   }
+    // });
     socket.on(`another_socket_we_enter_id:${props.userData.userId}`, data => {
       console.log(`another_socket_we_enter_id:`);
       props.changeStutusPopupByType({
@@ -89,4 +94,4 @@ const mapStateToProps = state => {
     userData: state.userData
   }
 }
-export default connect(mapStateToProps, { logOut, changeStutusPopupByType })(Header);
+export default connect(mapStateToProps, { logOut, changeStutusPopupByType, changeStatusConection, changeQrCode })(Header);
