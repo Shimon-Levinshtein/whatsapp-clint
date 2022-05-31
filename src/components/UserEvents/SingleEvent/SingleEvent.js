@@ -30,6 +30,7 @@ const SingleEvent = props => {
         </div>
         <div className={styles.right}>
           <div className={styles.edit_button} >Edit</div>
+          <Link to={`/edit-event/event-template/${'eventByDate'}/${'messageByDate'}`}>Create this Event</Link>
           <div onClick={() => deleteEvent()} className={styles.delete_button} >delete</div>
         </div>
       </div>

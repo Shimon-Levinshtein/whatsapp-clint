@@ -7,10 +7,11 @@ import ButtonClose from '../../../../../templates/ButtonClose/ButtonClose';
 const SelectGroup = props => {
 
   const [selectedAllContacts, setSelectedAllContacts] = useState(false);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
   }, [selectedAllContacts]);
-  
+
   const onChangeSelectAll = () => {
     if (!selectedAllContacts) {
       const contactsList = [];
@@ -31,7 +32,7 @@ const SelectGroup = props => {
   const handleSelectContact = (contact, yasOrNo) => {
     const newContactsList = [...props.groupList];
     if (!yasOrNo) {
-      newContactsList.push({ name: contact.name , number: contact.number });
+      newContactsList.push({ name: contact.name, number: contact.number });
     } else {
       let index;
       props.groupList.forEach((item, indexS) => {
@@ -53,8 +54,31 @@ const SelectGroup = props => {
             Select All ({props.groupList.length})
           </div>
         </div>
+        <div className={styles.search_input_div}>
+          <input value={search} onChange={e => setSearch(e.target.value)} className={styles.search_input} type='text' placeholder="Search..." name="search" />
+        </div>
         <div className={styles.contacts_list}>
-          {props.whatsappData.contacts.map((item, index) => {
+          {props.whatsappData.contacts
+          .filter(i => {
+            if (!i.isGroup) {
+              return false;
+            }
+            if (!search) {
+              return true;
+            }
+            if (i.name && i.number) {
+              return i.name.toLowerCase().includes(search.toLowerCase()) || i.number.toLowerCase().includes(search.toLowerCase());
+            } else {
+              if (i.name) {
+                return i.name.toLowerCase().includes(search.toLowerCase());
+              }
+              if (i.number) {
+                return i.number.toLowerCase().includes(search.toLowerCase());
+              }
+              return false;
+            }
+          })
+          .map((item, index) => {
             if (item.isGroup) {
               return (
                 <div key={index}>

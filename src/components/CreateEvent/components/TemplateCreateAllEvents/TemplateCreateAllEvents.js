@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from "./TemplateCreateAllEvents.module.scss";
 import { connect } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { dataSceens } from '../../dataCreateVents';
 import GetDate from './components/GetDate/GetDate';
 import GetTime from './components/GetTime/GetTime';
@@ -19,9 +19,27 @@ const displayDisplaybyType = {
 }
 
 const TemplateCreateAllEvents = props => {
+
+  const location = useLocation();
   const navigate = useNavigate();
+  const pathStatus = location.pathname.split('/')[1];
+  console.log(location.pathname.split('/')[1]);
+  // console.log(location.split('/')[1]);
   const { group, indexId } = useParams();
-  const data = dataSceens[group][indexId];
+  let data = {};
+  if (pathStatus === 'create-event') {
+    data = dataSceens[group][indexId];
+  };
+
+  if (pathStatus === 'edit-event') {
+    dataSceens[group].forEach(item => {
+      if (item.type === indexId) {
+        data = item;
+      };
+    });
+  };
+
+  const [isEdite, setIsEdite] = useState(false);
 
   const [displaybyType, setDisplaybyType] = useState(displayDisplaybyType);
   const [openContacts, setOpenContacts] = useState(false);
@@ -55,7 +73,7 @@ const TemplateCreateAllEvents = props => {
       eventDescription: data.description,
       type: data.type,
       eventName: eventName,
-      ...eventData 
+      ...eventData
     }, navigate);
   };
 
@@ -77,12 +95,12 @@ const TemplateCreateAllEvents = props => {
           </div>}
           {displaybyType.date && <GetDate value={date} setDate={setDate} />}
           {displaybyType.time && <GetTime value={date} setTime={setDate} />}
-          
+
         </div>
         <div className={styles.hr} />
         <div className={styles.inputs_box_right}>
           <div className={styles.inputs_box_right_top}>
-           {displaybyType.contacts && <div className={styles.contacts_box}>
+            {displaybyType.contacts && <div className={styles.contacts_box}>
               <div onClick={() => setOpenContacts(true)} className={styles.contacts_button}>
                 Select Contacts
               </div>

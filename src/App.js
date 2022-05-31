@@ -75,6 +75,7 @@ const App = props => {
         <Route path="/change-password/:mail/:resetToken" element={<ChangePassword />} />
         <Route path="/whatsapp-connection" element={<WhatsappConnection />} />
         <Route path="/create-event/*" element={<CreateEvent />} />
+        <Route path="/edit-event/*" element={<CreateEvent />} />
         <Route path="/my-events/" element={<UserEvents />} />
         <Route path="*" element={<div>Hops ... Page not found</div>} />
       </Routes>
