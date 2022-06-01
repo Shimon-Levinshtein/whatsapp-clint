@@ -8,7 +8,7 @@ import GetTime from './components/GetTime/GetTime';
 import SelectContacts from './components/SelectContacts/SelectContacts';
 import DisplayContacts from './components/DisplayContacts/DisplayContacts';
 import SelectGroup from './components/SelectGroup/SelectGroup';
-import { createEventByType } from '../../../../actions/events';
+import { createEventByType, editEventById } from '../../../../actions/events';
 
 const displayDisplaybyType = {
   date: false,
@@ -23,9 +23,8 @@ const TemplateCreateAllEvents = props => {
   const location = useLocation();
   const navigate = useNavigate();
   const pathStatus = location.pathname.split('/')[1];
-  console.log(location.pathname.split('/')[1]);
-  // console.log(location.split('/')[1]);
   const { group, indexId } = useParams();
+  console.log(location);
   let data = {};
   if (pathStatus === 'create-event') {
     data = dataSceens[group][indexId];
@@ -43,18 +42,27 @@ const TemplateCreateAllEvents = props => {
 
   const [displaybyType, setDisplaybyType] = useState(displayDisplaybyType);
   const [openContacts, setOpenContacts] = useState(false);
-  const [contactsList, setContactsList] = useState([]);
-
   const [openGroup, setOpenGroup] = useState(false);
-  const [groupList, setGroupList] = useState([]);
+  
 
   const [eventName, setEventName] = useState('');
   const [message, setMessage] = useState('');
-
   const [date, setDate] = useState(new Date());
+  const [contactsList, setContactsList] = useState([]);
+  const [groupList, setGroupList] = useState([]);
+
 
 
   useEffect(() => {
+  if (pathStatus === 'edit-event') {
+    if (location.state) {
+      if (location.state.eventName) setEventName(location.state.eventName);
+      if (location.state.message) setMessage(location.state.message);
+      if (location.state.date) setDate(new Date(location.state.date));
+      if (location.state.contactsList) setContactsList(location.state.contactsList);
+      if (location.state.groupList) setGroupList(location.state.groupList);
+    }
+  };
     const newDisplaybyType = { ...displayDisplaybyType };
     data.data.forEach(item => {
       newDisplaybyType[item] = true;
@@ -69,6 +77,25 @@ const TemplateCreateAllEvents = props => {
     if (displaybyType.group) eventData.groupList = groupList;
     if (displaybyType.message) eventData.message = message;
     props.createEventByType({
+      group: group,
+      eventTitle: data.title,
+      eventDescription: data.description,
+      type: data.type,
+      eventName: eventName,
+      ...eventData
+    }, navigate);
+  };
+
+  const saveChangesEvent = () => {
+    
+    const eventData = {};
+    if (displaybyType.date || displaybyType.time) eventData.date = date;
+    if (displaybyType.contacts) eventData.contactsList = contactsList;
+    if (displaybyType.group) eventData.groupList = groupList;
+    if (displaybyType.message) eventData.message = message;
+    props.editEventById({
+      _id: location.state._id,
+      group: group,
       eventTitle: data.title,
       eventDescription: data.description,
       type: data.type,
@@ -121,9 +148,12 @@ const TemplateCreateAllEvents = props => {
               {openGroup && <SelectGroup setOpenGroup={setOpenGroup} groupList={groupList} setGroupList={setGroupList} />}
             </div>}
           </div>
-          <div onClick={() => saveEvent()} className={styles.inputs_box_right_bottom}>
-            CREATE
-          </div>
+          {pathStatus === 'create-event' && <div onClick={() => saveEvent()} className={styles.inputs_box_right_bottom}>
+            CREATE NEW EVENT
+          </div>}
+          {pathStatus === 'edit-event' && <div onClick={() => saveChangesEvent()} className={styles.inputs_box_right_bottom}>
+            SAVE CHANGES EVENT
+          </div>}
         </div>
       </div>
     </div>
@@ -134,4 +164,4 @@ const TemplateCreateAllEvents = props => {
 const mapStateToProps = state => {
   return {}
 }
-export default connect(mapStateToProps, { createEventByType })(TemplateCreateAllEvents);
+export default connect(mapStateToProps, { createEventByType, editEventById  })(TemplateCreateAllEvents);

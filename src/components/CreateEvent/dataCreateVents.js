@@ -29,7 +29,7 @@ exports.dataSceens = {
       path: 'message-by-text-received',
       title: 'Message by text received',
       description: 'Reply a message by text received, \noption by contact or group or all.',
-      type: '',
+      type: 'messageByTextReceived',
       data: [
 
       ],

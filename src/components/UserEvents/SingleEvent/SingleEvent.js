@@ -1,17 +1,24 @@
 import React from 'react';
 import styles from "./SingleEvent.module.scss";
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import EventIcons from '../../templates/EventIcons/EventIcons';
 import { deleteEvent } from '../../../actions/events';
 
-
 const SingleEvent = props => {
-  
+
+  const navigate = useNavigate();
+
   const deleteEvent = () => {
     props.deleteEvent(props._id);
   };
+  const editEvent = () => {
+    navigate(`/edit-event/event-template/${props.data.group}/${props.data.type}`, {
+      state: {...props.data, _id: props._id},
+    });
+  };
+
 
   return (
     <div className={styles.continer}>
@@ -29,8 +36,7 @@ const SingleEvent = props => {
           </div>
         </div>
         <div className={styles.right}>
-          <div className={styles.edit_button} >Edit</div>
-          <Link to={`/edit-event/event-template/${'eventByDate'}/${'messageByDate'}`}>Create this Event</Link>
+          <div onClick={() => editEvent()} className={styles.edit_button} >Edit</div>
           <div onClick={() => deleteEvent()} className={styles.delete_button} >delete</div>
         </div>
       </div>
