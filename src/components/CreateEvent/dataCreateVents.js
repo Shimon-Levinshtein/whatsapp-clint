@@ -20,7 +20,11 @@ exports.dataSceens = {
       description: 'Send a message once on a specific date every month, \noption by contact or group or all.',
       type: 'EveryMonthByDayInMonth',
       data: [
-
+        'time',
+        'contacts',
+        'group',
+        'message',
+        'dayInMonths',
       ],
     },
   ],

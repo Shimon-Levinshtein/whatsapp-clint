@@ -7,6 +7,12 @@ exports.loadWhatsAppData = (userId, props) => {
         props.updateContacts(data.contacts);
     });
     socket.on(`response_event_ended_id:${userId}`, data => {
-        props.deleteEventLocal(data.eventId);
+        switch (data.type) {
+            case 'messageByDate':
+                props.deleteEventLocal(data.eventId);
+                break;
+            default:
+                break;
+        }
     });
 };

@@ -16,6 +16,7 @@ const displayDisplaybyType = {
   contacts: false,
   group: false,
   message: false,
+  dayInMonths: false,
 }
 
 const TemplateCreateAllEvents = props => {
@@ -24,7 +25,6 @@ const TemplateCreateAllEvents = props => {
   const navigate = useNavigate();
   const pathStatus = location.pathname.split('/')[1];
   const { group, indexId } = useParams();
-  console.log(location);
   let data = {};
   if (pathStatus === 'create-event') {
     data = dataSceens[group][indexId];
@@ -43,10 +43,11 @@ const TemplateCreateAllEvents = props => {
   const [displaybyType, setDisplaybyType] = useState(displayDisplaybyType);
   const [openContacts, setOpenContacts] = useState(false);
   const [openGroup, setOpenGroup] = useState(false);
-  
+
 
   const [eventName, setEventName] = useState('');
   const [message, setMessage] = useState('');
+  const [dayInMonths, setDayInMonths] = useState(1);
   const [date, setDate] = useState(new Date());
   const [contactsList, setContactsList] = useState([]);
   const [groupList, setGroupList] = useState([]);
@@ -54,15 +55,16 @@ const TemplateCreateAllEvents = props => {
 
 
   useEffect(() => {
-  if (pathStatus === 'edit-event') {
-    if (location.state) {
-      if (location.state.eventName) setEventName(location.state.eventName);
-      if (location.state.message) setMessage(location.state.message);
-      if (location.state.date) setDate(new Date(location.state.date));
-      if (location.state.contactsList) setContactsList(location.state.contactsList);
-      if (location.state.groupList) setGroupList(location.state.groupList);
-    }
-  };
+    if (pathStatus === 'edit-event') {
+      if (location.state) {
+        if (location.state.eventName) setEventName(location.state.eventName);
+        if (location.state.message) setMessage(location.state.message);
+        if (location.state.dayInMonths) setDayInMonths(location.state.dayInMonths);
+        if (location.state.date) setDate(new Date(location.state.date));
+        if (location.state.contactsList) setContactsList(location.state.contactsList);
+        if (location.state.groupList) setGroupList(location.state.groupList);
+      }
+    };
     const newDisplaybyType = { ...displayDisplaybyType };
     data.data.forEach(item => {
       newDisplaybyType[item] = true;
@@ -76,6 +78,7 @@ const TemplateCreateAllEvents = props => {
     if (displaybyType.contacts) eventData.contactsList = contactsList;
     if (displaybyType.group) eventData.groupList = groupList;
     if (displaybyType.message) eventData.message = message;
+    if (displaybyType.dayInMonths) eventData.dayInMonths = dayInMonths;
     props.createEventByType({
       group: group,
       eventTitle: data.title,
@@ -87,12 +90,13 @@ const TemplateCreateAllEvents = props => {
   };
 
   const saveChangesEvent = () => {
-    
+
     const eventData = {};
     if (displaybyType.date || displaybyType.time) eventData.date = date;
     if (displaybyType.contacts) eventData.contactsList = contactsList;
     if (displaybyType.group) eventData.groupList = groupList;
     if (displaybyType.message) eventData.message = message;
+    if (displaybyType.dayInMonths) eventData.dayInMonths = dayInMonths;
     props.editEventById({
       _id: location.state._id,
       group: group,
@@ -119,6 +123,14 @@ const TemplateCreateAllEvents = props => {
           {displaybyType.message && <div className={styles.input_continer}>
             <label>Message</label>
             <textarea type="text" value={message} onChange={(e) => setMessage(e.target.value)} />
+          </div>}
+          {displaybyType.dayInMonths && <div className={styles.input_continer}>
+            <label>Day in the months</label>
+            <select value={dayInMonths} onChange={(e) => setDayInMonths(e.target.value)}>
+              {new Array(28).fill(0).map((item, index) => (
+                <option key={index} >{index + 1}</option>
+              ))}
+            </select>
           </div>}
           {displaybyType.date && <GetDate value={date} setDate={setDate} />}
           {displaybyType.time && <GetTime value={date} setTime={setDate} />}
@@ -164,4 +176,4 @@ const TemplateCreateAllEvents = props => {
 const mapStateToProps = state => {
   return {}
 }
-export default connect(mapStateToProps, { createEventByType, editEventById  })(TemplateCreateAllEvents);
+export default connect(mapStateToProps, { createEventByType, editEventById })(TemplateCreateAllEvents);

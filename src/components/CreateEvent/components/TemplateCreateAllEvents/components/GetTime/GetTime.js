@@ -13,6 +13,7 @@ const GetTime = ({ value, setTime }) => {
     const newTime = new Date(value);
     newTime.setHours(date.getHours());
     newTime.setMinutes(date.getMinutes());
+    newTime.setSeconds(0);
     setTime(newTime);
   };
 

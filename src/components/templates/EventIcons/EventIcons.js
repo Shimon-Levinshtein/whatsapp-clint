@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { ImCalendar } from "react-icons/im";
 import { ImQuestion } from "react-icons/im";
 import { RiCalendarEventLine } from "react-icons/ri";
+import { GoCommentDiscussion } from "react-icons/go";
 
 
 const EventIcons = props => {
@@ -13,6 +14,8 @@ const EventIcons = props => {
         return <ImCalendar />;
       case "EveryMonthByDayInMonth":
         return <RiCalendarEventLine />;
+      case "messageByTextReceived":
+        return <GoCommentDiscussion />;
       default:
         return <ImQuestion />;
     }
