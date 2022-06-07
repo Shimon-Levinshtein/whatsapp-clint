@@ -7,6 +7,7 @@ const DisplayContacts = props => {
   return (
     <div className={styles.continer}>
       <div className={styles.contacts_list}>
+        {!props.contactsList.length && <div className={styles.empty_list}> Nothing was selected!</div>}
         {props.contactsList.map((item, index) => {
           return (
             <div key={index}>

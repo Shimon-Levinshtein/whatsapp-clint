@@ -6,18 +6,22 @@
   background-color: white;
   margin-top: 30px;
   padding-top: 20px;
-
-  .contacts_list_item {
-    display: flex;
-    align-items: center;
-    .contacts_list_item_name {
-      width: 200px;
-      text-align: left;
-      margin-right: 5px;
+  .contacts_list {
+    .empty_list {
+      margin: 20px;
     }
-    .contacts_list_item_number {
-      width: 120px;
-      text-align: right;
+    .contacts_list_item {
+      display: flex;
+      align-items: center;
+      .contacts_list_item_name {
+        width: 200px;
+        text-align: left;
+        margin-right: 5px;
+      }
+      .contacts_list_item_number {
+        width: 120px;
+        text-align: right;
+      }
     }
   }
 }

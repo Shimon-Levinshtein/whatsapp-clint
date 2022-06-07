@@ -1,0 +1,146 @@
+.continer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .box {
+    position: relative;
+    padding: 70px;
+    padding-right: 35px;
+    background-color: white;
+    border-radius: 20px;
+    min-height: 400px;
+    min-width: 400px;
+    .insid_box {
+       padding-right: 35px;
+       max-height: 80vh;
+       overflow-x: hidden;
+       overflow-y: auto;
+      .condition_box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        label {
+          text-align: left;
+          margin-bottom: 10px;
+          color: rgb(83, 83, 83);
+          font-size: 18px;
+          width: 100%;
+        }
+        select {
+          width: 100%;
+        }
+      }
+      .input_box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+        label {
+          width: 100%;
+          margin-bottom: 10px;
+          color: rgb(83, 83, 83);
+          font-size: 18px;
+          text-align: left;
+        }
+        input {
+          width: 100%;
+        }
+      }
+    }
+
+    .time_box {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 30px;
+      p {
+        color: rgb(83, 83, 83);
+        font-size: 18px;
+        margin: 0px;
+        margin-left: 8px;
+      }
+    }
+    .add_time_box {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 30px;
+      p {
+        color: rgb(83, 83, 83);
+        font-size: 18px;
+        margin: 0px;
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+      input {
+        height: 30px;
+      }
+      .but_save {
+        background-color: rgb(44, 183, 66);
+        color: white;
+        height: 30px;
+        border-radius: 15px;
+        text-align: center;
+        font-size: 14px;
+        text-decoration: none;
+        border: 1px solid rgb(44, 183, 66);
+        width: 70px;
+        cursor: pointer;
+        margin-left: 18px;
+        padding-top: 3px;
+        &:hover {
+          background-color: rgb(255, 255, 255);
+          color: rgb(44, 183, 66);
+        }
+      }
+    }
+    .list_time_box {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+      border-radius: 15px;
+      background-color: rgb(231, 231, 231);
+      padding-left: 15px;
+      p {
+        color: rgb(83, 83, 83);
+        font-size: 18px;
+        margin: 0px;
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+      input {
+        height: 30px;
+      }
+      .but_delete {
+        background-color: red;
+        color: white;
+        height: 30px;
+        border-radius: 15px;
+        text-align: center;
+        font-size: 14px;
+        text-decoration: none;
+        border: 1px solid red;
+        width: 70px;
+        cursor: pointer;
+        margin-left: 18px;
+        padding-top: 3px;
+        &:hover {
+          background-color: rgb(255, 255, 255);
+          color: red;
+        }
+      }
+    }
+  }
+}

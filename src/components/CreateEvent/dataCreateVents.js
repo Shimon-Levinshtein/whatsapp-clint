@@ -35,7 +35,9 @@ exports.dataSceens = {
       description: 'Reply a message by text received, \noption by contact or group or all.',
       type: 'messageByTextReceived',
       data: [
-
+        'contacts',
+        'group',
+        'replyToInComingMessage',
       ],
     },
   ],

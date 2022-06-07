@@ -9,6 +9,7 @@ import SelectContacts from './components/SelectContacts/SelectContacts';
 import DisplayContacts from './components/DisplayContacts/DisplayContacts';
 import SelectGroup from './components/SelectGroup/SelectGroup';
 import { createEventByType, editEventById } from '../../../../actions/events';
+import ReplyToInComingMessage from './components/ReplyToInComingMessage/ReplyToInComingMessage';
 
 const displayDisplaybyType = {
   date: false,
@@ -17,6 +18,7 @@ const displayDisplaybyType = {
   group: false,
   message: false,
   dayInMonths: false,
+  replyToInComingMessage: false,
 }
 
 const TemplateCreateAllEvents = props => {
@@ -48,6 +50,7 @@ const TemplateCreateAllEvents = props => {
   const [eventName, setEventName] = useState('');
   const [message, setMessage] = useState('');
   const [dayInMonths, setDayInMonths] = useState(1);
+  const [replyToInComingMessage, setReplyToInComingMessage] = useState([]);
   const [date, setDate] = useState(new Date());
   const [contactsList, setContactsList] = useState([]);
   const [groupList, setGroupList] = useState([]);
@@ -60,6 +63,7 @@ const TemplateCreateAllEvents = props => {
         if (location.state.eventName) setEventName(location.state.eventName);
         if (location.state.message) setMessage(location.state.message);
         if (location.state.dayInMonths) setDayInMonths(location.state.dayInMonths);
+        if (location.state.replyToInComingMessage) setReplyToInComingMessage(location.state.replyToInComingMessage);
         if (location.state.date) setDate(new Date(location.state.date));
         if (location.state.contactsList) setContactsList(location.state.contactsList);
         if (location.state.groupList) setGroupList(location.state.groupList);
@@ -79,6 +83,7 @@ const TemplateCreateAllEvents = props => {
     if (displaybyType.group) eventData.groupList = groupList;
     if (displaybyType.message) eventData.message = message;
     if (displaybyType.dayInMonths) eventData.dayInMonths = dayInMonths;
+    if (displaybyType.replyToInComingMessage) eventData.replyToInComingMessage = replyToInComingMessage;
     props.createEventByType({
       group: group,
       eventTitle: data.title,
@@ -97,6 +102,7 @@ const TemplateCreateAllEvents = props => {
     if (displaybyType.group) eventData.groupList = groupList;
     if (displaybyType.message) eventData.message = message;
     if (displaybyType.dayInMonths) eventData.dayInMonths = dayInMonths;
+    if (displaybyType.replyToInComingMessage) eventData.replyToInComingMessage = replyToInComingMessage;
     props.editEventById({
       _id: location.state._id,
       group: group,
@@ -134,6 +140,7 @@ const TemplateCreateAllEvents = props => {
           </div>}
           {displaybyType.date && <GetDate value={date} setDate={setDate} />}
           {displaybyType.time && <GetTime value={date} setTime={setDate} />}
+          {displaybyType.replyToInComingMessage && <ReplyToInComingMessage replyToInComingMessage={replyToInComingMessage} setReplyToInComingMessage={setReplyToInComingMessage} />}
 
         </div>
         <div className={styles.hr} />

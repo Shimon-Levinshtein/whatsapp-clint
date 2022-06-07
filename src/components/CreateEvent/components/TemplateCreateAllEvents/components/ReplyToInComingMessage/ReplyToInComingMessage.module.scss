@@ -1,0 +1,90 @@
+.continer {
+  width: fit-content;
+  margin-top: 15px;
+  min-width: 300px;
+  .box {
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 30px;
+    padding-bottom: 40px;
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+      color: rgb(83, 83, 83);
+      margin-bottom: 20px;
+      padding-top: 20px;
+      width: 100%;
+      min-width: 350px;
+    }
+    .list {
+      .list__item {
+        .list_item_box {
+           display: flex;
+           align-items: center;
+           padding-left: 20px;
+           padding-right: 20px;
+           justify-content: space-between;
+          svg {
+            color: rgb(44, 183, 66);
+            font-size: 25px;
+          }
+          .list__item__content__text {
+            font-size: 18px;
+            color: rgb(83, 83, 83);
+            margin-left: 10px;
+            width: 100%;
+            text-align: left;
+            max-width: 300px;
+          }
+          .edit_item {
+             svg {
+               font-size: 22px;
+               cursor: pointer;
+               path {
+                  stroke: rgb(44, 183, 66);
+               }
+               &:hover {
+                   path {
+                     stroke: rgb(7, 151, 29);
+                   }
+               }
+             }
+          }
+        }
+        hr {
+          margin: 0px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+          border: 0;
+          border-top: 1px solid rgb(167, 167, 167);
+        }
+      }
+    }
+  }
+  .add_bottom {
+    margin-top: 50px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    border: 1px solid rgb(44, 183, 66);
+    min-width: 140px;
+    width: 100%;
+    cursor: pointer;
+    background-color: rgb(255, 255, 255);
+    color: rgb(44, 183, 66);
+    &:hover {
+      background-color: rgb(44, 183, 66);
+      color: white;
+    }
+    position: relative;
+    svg {
+      position: absolute;
+      font-size: 26px;
+      top: 8px;
+      right: 10px;
+    }
+  }
+}
