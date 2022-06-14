@@ -17,7 +17,11 @@ const SelectContacts = props => {
       const contactsList = [];
       props.whatsappData.contacts.forEach(item => {
         if (item.isUser) {
-          contactsList.push({ name: item.name ? item.name : 'Not a contact', number: item.number });
+          contactsList.push({ 
+            name: item.name ? item.name : 'Not a contact', 
+            number: item.number,
+            serializedId: item.id._serialized,
+          });
         }
       })
       props.setContactsList(contactsList);
@@ -28,11 +32,14 @@ const SelectContacts = props => {
     };
   };
 
-
   const handleSelectContact = (contact, yasOrNo) => {
     const newContactsList = [...props.contactsList];
     if (!yasOrNo) {
-      newContactsList.push({ name: contact.name ? contact.name : 'Not a contact', number: contact.number });
+      newContactsList.push({ 
+        name: contact.name ? contact.name : 'Not a contact',
+         number: contact.number,
+         serializedId: contact.id._serialized,
+        });
     } else {
       let index;
       props.contactsList.forEach((item, indexS) => {

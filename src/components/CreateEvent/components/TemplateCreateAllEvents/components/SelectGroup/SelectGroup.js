@@ -17,7 +17,12 @@ const SelectGroup = props => {
       const contactsList = [];
       props.whatsappData.contacts.forEach(item => {
         if (item.isGroup) {
-          contactsList.push({ name: item.name ? item.name : 'Not a contact', number: item.number });
+          console.log(item);
+          contactsList.push({
+            name: item.name ? item.name : 'Not a contact',
+            number: item.number,
+            serializedId: item.id._serialized,
+          });
         }
       })
       props.setGroupList(contactsList);
@@ -32,7 +37,11 @@ const SelectGroup = props => {
   const handleSelectContact = (contact, yasOrNo) => {
     const newContactsList = [...props.groupList];
     if (!yasOrNo) {
-      newContactsList.push({ name: contact.name, number: contact.number });
+      newContactsList.push({
+        name: contact.name,
+        number: contact.number,
+        serializedId: contact.id._serialized,
+      });
     } else {
       let index;
       props.groupList.forEach((item, indexS) => {
@@ -59,44 +68,44 @@ const SelectGroup = props => {
         </div>
         <div className={styles.contacts_list}>
           {props.whatsappData.contacts
-          .filter(i => {
-            if (!i.isGroup) {
-              return false;
-            }
-            if (!search) {
-              return true;
-            }
-            if (i.name && i.number) {
-              return i.name.toLowerCase().includes(search.toLowerCase()) || i.number.toLowerCase().includes(search.toLowerCase());
-            } else {
-              if (i.name) {
-                return i.name.toLowerCase().includes(search.toLowerCase());
+            .filter(i => {
+              if (!i.isGroup) {
+                return false;
               }
-              if (i.number) {
-                return i.number.toLowerCase().includes(search.toLowerCase());
+              if (!search) {
+                return true;
               }
-              return false;
-            }
-          })
-          .map((item, index) => {
-            if (item.isGroup) {
-              return (
-                <div key={index}>
-                  <div className={styles.contacts_list_item}>
-                    <input
-                      checked={props.groupList.some(a => a.name === item.name)}
-                      onChange={() => handleSelectContact(item, props.groupList.some(a => a.name === item.name))}
-                      type="checkbox" />
-                    <div className={styles.contacts_list_item_name}>{item.name ? item.name : 'Not a contact'} </div>
-                    <div className={styles.contacts_list_item_number}>{item.number}</div>
+              if (i.name && i.number) {
+                return i.name.toLowerCase().includes(search.toLowerCase()) || i.number.toLowerCase().includes(search.toLowerCase());
+              } else {
+                if (i.name) {
+                  return i.name.toLowerCase().includes(search.toLowerCase());
+                }
+                if (i.number) {
+                  return i.number.toLowerCase().includes(search.toLowerCase());
+                }
+                return false;
+              }
+            })
+            .map((item, index) => {
+              if (item.isGroup) {
+                return (
+                  <div key={index}>
+                    <div className={styles.contacts_list_item}>
+                      <input
+                        checked={props.groupList.some(a => a.name === item.name)}
+                        onChange={() => handleSelectContact(item, props.groupList.some(a => a.name === item.name))}
+                        type="checkbox" />
+                      <div className={styles.contacts_list_item_name}>{item.name ? item.name : 'Not a contact'} </div>
+                      <div className={styles.contacts_list_item_number}>{item.number}</div>
+                    </div>
+                    <hr />
                   </div>
-                  <hr />
-                </div>
-              );
-            } else {
-              return null;
-            }
-          })}
+                );
+              } else {
+                return null;
+              }
+            })}
         </div>
       </div>
     </div>

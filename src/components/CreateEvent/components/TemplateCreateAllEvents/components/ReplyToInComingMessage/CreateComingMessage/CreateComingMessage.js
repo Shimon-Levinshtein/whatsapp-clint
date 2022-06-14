@@ -21,14 +21,21 @@ const CreateComingMessage = ({
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [arrTimes, setArrTimes] = useState([]);
+  const [arrTimesUTC, setArrTimesUTC] = useState([]);
+  
 
   useEffect(() => {
     if (isEdit) {
+      console.log(editData);
+      console.log(editData.arrTimesUTC[0]);
+      console.log(new Date(editData.arrTimesUTC[0].startTime));
+
       setTypeCondition(editData.typeCondition);
       setIsComingMessage(editData.isComingMessage);
       setSendMessage(editData.sendMessage);
       setIsBetweenTime(editData.isBetweenTime);
       setArrTimes(editData.arrTimes);
+      setArrTimesUTC(editData.arrTimesUTC);
     }
   }, [isEdit, editData]);
   const onChangeTypeCondition = (e) => {
@@ -40,7 +47,22 @@ const CreateComingMessage = ({
   const saveTime = () => {
     if (!startTime || !endTime) alert('Please enter time');
     if (startTime && endTime) {
-      setArrTimes([...arrTimes, { startTime, endTime }]);
+      let start = new Date();
+      let end = new Date();
+      start.setHours(startTime.split(':')[0]);
+      start.setMinutes(startTime.split(':')[1]);
+      start.setSeconds('0');
+      end.setHours(endTime.split(':')[0]);
+      end.setMinutes(endTime.split(':')[1]);
+      end.setSeconds('0');
+      setArrTimes([...arrTimes, { 
+        startTime: startTime, 
+        endTime: endTime, 
+      }]);
+      setArrTimesUTC([...arrTimesUTC, { 
+        startTime: start, 
+        endTime: end, 
+      }]);
       setStartTime('');
       setEndTime('');
     }
@@ -48,8 +70,11 @@ const CreateComingMessage = ({
 
   const deleteTime = (index) => {
     const newArr = [...arrTimes];
+    const newArrTimesUTC = [...arrTimesUTC];
     newArr.splice(index, 1);
+    newArrTimesUTC.splice(index, 1);
     setArrTimes(newArr);
+    setArrTimesUTC(newArrTimesUTC);
   };
 
   const createComingMessage = () => {
@@ -64,6 +89,7 @@ const CreateComingMessage = ({
         sendMessage,
         isBetweenTime,
         arrTimes: isBetweenTime ? arrTimes : [],
+        arrTimesUTC: isBetweenTime ? arrTimesUTC : [],
       };
       setIsEdit(false);
     } else {
@@ -73,6 +99,7 @@ const CreateComingMessage = ({
         sendMessage,
         isBetweenTime,
         arrTimes: isBetweenTime ? arrTimes : [],
+        arrTimesUTC: isBetweenTime ? arrTimesUTC : [],
       });
     }
     setReplyToInComingMessage(newReplyToInComingMessage);

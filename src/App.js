@@ -5,7 +5,7 @@ import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import ErrorMessage from './components/templates/ErrorMessage/ErrorMessage';
 import { connect } from 'react-redux';
 import Login from './components/authentication/Login/Login';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Loading from './components/templates/Loading/Loading';
 import { loginRefresh } from './actions/authentication';
 import HomePage from './components/HomePage/HomePage';
@@ -21,12 +21,30 @@ import { updateContacts } from './actions/whatsappData';
 import PopupSucceeded from './components/templates/PopupSucceeded/PopupSucceeded';
 import UserEvents from './components/UserEvents/UserEvents';
 import { deleteEventLocal, getUserEvents } from './actions/events';
+import { socket } from './socket/socketConnection';
+import io from "socket.io-client";
+import { updateChats } from './actions/chatsData';
+import Chats from './components/Chats/Chats';
+
 
 
 const App = props => {
   
   const navigate = useNavigate();
   const location = useLocation();
+
+  const setUpSocket = () => {
+    const token = localStorage.getItem('userToken');
+    if (token.length > 0 && !socket.connected) {
+      socket.auth.token = localStorage.getItem('userToken');;
+      socket.connect({
+        auth: {
+          token: token,
+        }
+      });
+    }
+  };
+
   useEffect(() => {
     const token = localStorage.getItem('userToken');
     const mail = localStorage.getItem('userEmail');
@@ -40,6 +58,9 @@ const App = props => {
         props.changeStutusPopupByType({ type: "Loading", yesOrNo: false });
       }
     };
+    socket.on('disconnect', () => {
+      setUpSocket();
+    });
   }, []);
 
   useEffect(() => {
@@ -53,6 +74,9 @@ const App = props => {
       props.getUserEvents();
     };
   }, [props.userData.userId, props.qrCode.whatsappConnected]);
+  useEffect(() => {
+    setUpSocket();
+  }, [props.userData.userToken]);
 
 
 
@@ -77,6 +101,7 @@ const App = props => {
         <Route path="/create-event/*" element={<CreateEvent />} />
         <Route path="/edit-event/*" element={<CreateEvent />} />
         <Route path="/my-events/" element={<UserEvents />} />
+        <Route path="/chats/" element={<Chats />} />
         <Route path="*" element={<div>Hops ... Page not found</div>} />
       </Routes>
     </div>
@@ -97,4 +122,5 @@ export default connect(mapStateToProps, {
   updateContacts,
   getUserEvents,
   deleteEventLocal,
+  updateChats,
 })(App);

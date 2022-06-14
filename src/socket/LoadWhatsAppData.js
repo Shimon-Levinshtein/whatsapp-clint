@@ -6,6 +6,10 @@ exports.loadWhatsAppData = (userId, props) => {
     socket.on(`response_contacts_id:${userId}`, data => {
         props.updateContacts(data.contacts);
     });
+    socket.emit(`request_chats_id:${userId}`);
+    socket.on(`response_chats_id:${userId}`, data => {
+        props.updateChats(data.chats);
+    });
     socket.on(`response_event_ended_id:${userId}`, data => {
         switch (data.type) {
             case 'messageByDate':

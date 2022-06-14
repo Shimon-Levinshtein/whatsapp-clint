@@ -70,8 +70,10 @@ const Header = props => {
                 <NavLink className={e => "nav-link " + (e.isActive ? styles.active_top_tab : "")} to="/">Home</NavLink>
               </li>
               <li className="nav-item">
+                <NavLink className={e => "nav-link " + (e.isActive ? styles.active_top_tab : "")} to="/chats">Chats</NavLink>
+              </li>
+              <li className="nav-item">
                 <NavLink className={e => "nav-link " + (e.isActive ? styles.active_top_tab : "")} to="/create-event">Create event</NavLink>
-                {/* <a className="nav-link" >Create event</a> */}
               </li>
             </ul>}
             <div className="d-flex">
