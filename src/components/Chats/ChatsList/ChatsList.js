@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styles from "./ChatsList.module.scss";
 import { connect } from 'react-redux';
-import { documentSvg, imageSvg, userImgSvg, vRedetSvg } from './svgs';
+import { documentSvg, imageSvg, multiVcardSvg, pttSvg, stickerSvg, userImgSvg, videoSvg, vRedetOneSvg, vRedetSvg } from '../svgs';
 import moment from 'moment';
+import { addToFocusChats } from '../../../actions/chatsData';
 
 
 const ChatsList = props => {
 
-  console.log(props.chatsData);
   const chatsData = props.chatsData.chats;
   const today = new Date();
   let yesterday = new Date();
@@ -20,22 +20,22 @@ const ChatsList = props => {
     let hoursResult = 0;
     let ziroToMinutes = '';
     if (minutesResult > 59) {
-
-      console.log(minutesResult / 60);
       hoursResult = Math.floor(minutesResult / 60);
       minutesResult = minutesResult % 60;
-      if (minutesResult < 10) {
-        ziroToMinutes = '0';
-        if (minutesResult === 0) {
-          ziroToMinutes = '00:';
-        }
+    }
+    if (minutesResult < 10) {
+      ziroToMinutes = '0';
+      if (minutesResult === 0) {
+        ziroToMinutes = '00:';
       }
     }
     return `${((hoursResult > 0) ? hoursResult + ":" : "")}${ziroToMinutes}${((minutesResult > 0) ? minutesResult + ":" : "")}${(secondsResult > 9 || secondsResult == 0) ? secondsResult : '0' + secondsResult}
     `;
   };
 
-  console.log(calculateSeconds(3600));
+  const onClickChat = data => {
+    props.addToFocusChats(data);
+  };
 
   return (
     <div className={styles.continer}>
@@ -55,7 +55,7 @@ const ChatsList = props => {
           return { ...item, displayDate: displayDate }
         })
         .map((chat, index) => (
-          <div kye={index} className={styles.chat_item_box} onClick={() => console.log(chat)}>
+          <div key={index} className={styles.chat_item_box} onClick={() => onClickChat(chat)}>
             <div className={styles.chat_item_list_img}>
               {chat.imgUrl ? <img src={chat.imgUrl} /> :
                 userImgSvg()}
@@ -73,15 +73,26 @@ const ChatsList = props => {
                   </div>
                 </div>
                 <div className={styles.buttom}>
-                  <div className={styles.icon_v} style={chat.chats[chat.chats.length - 1]?.ack === 3 ? { color: '#53bdeb' } : {}}>
-                    {chat.chats[chat.chats.length - 1]?.fromMe ? vRedetSvg() : ''}
+                  <div className={styles.icon_v} style={chat.chats[chat.chats.length - 1]?.ack >= 3 ? { color: '#53bdeb' } : {}}>
+                    {chat.chats[chat.chats.length - 1]?.fromMe && chat.chats[chat.chats.length - 1]?.ack >= 2 ? vRedetSvg() : ''}
+                    {chat.chats[chat.chats.length - 1]?.fromMe && chat.chats[chat.chats.length - 1]?.ack === 1 ? vRedetOneSvg() : ''}
                   </div>
                   {chat.chats[chat.chats.length - 1]?.type === 'document' ? documentSvg() : ''}
                   {chat.chats[chat.chats.length - 1]?.type === 'image' ? imageSvg() : ''}
+                  {chat.chats[chat.chats.length - 1]?.type === 'ptt' ? pttSvg() : ''}
+                  {chat.chats[chat.chats.length - 1]?.type === 'video' ? videoSvg() : ''}
+                  {chat.chats[chat.chats.length - 1]?.type === 'sticker' ? stickerSvg() : ''}
+                  {chat.chats[chat.chats.length - 1]?.type === 'multi_vcard' ? multiVcardSvg() : ''}
                   <div className={styles.nessage}>
                     <span dir="auto">
+                      {chat.chats[chat.chats.length - 1]?.type === 'ptt' ? calculateSeconds(chat.chats[chat.chats.length - 1]?.duration) : ''}
                       {chat.chats.length ? chat.chats[chat.chats.length - 1]?.body : ''}
                       {chat.chats[chat.chats.length - 1]?.type === 'image' && !chat.chats[chat.chats.length - 1]?.body ? 'Photo' : ''}
+                      {chat.chats[chat.chats.length - 1]?.type === 'video' && !chat.chats[chat.chats.length - 1]?.body ? 'Video' : ''}
+                      {chat.chats[chat.chats.length - 1]?.type === 'sticker' && !chat.chats[chat.chats.length - 1]?.body ? 'Sticker' : ''}
+                      {chat.chats[chat.chats.length - 1]?.type === 'multi_vcard' && !chat.chats[chat.chats.length - 1]?.body ?
+                        chat.chats[chat.chats.length - 1]?._data.vcardList[0]?.displayName
+                        : ''}
                     </span>
                   </div>
 
@@ -103,4 +114,4 @@ const mapStateToProps = state => {
     chatsData: state.chatsData
   }
 }
-export default connect(mapStateToProps, {})(ChatsList);
+export default connect(mapStateToProps, { addToFocusChats })(ChatsList);

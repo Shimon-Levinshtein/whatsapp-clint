@@ -1,0 +1,64 @@
+.date_change {
+  background-color: white;
+  padding: 12px;
+  padding-top: 6px;
+  padding-bottom: 5px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 0.5px rgba(160, 160, 160, 0.555);
+  font-size: 12.5px;
+  color: #667781;
+  position: sticky;
+  top: 20px;
+  z-index: 5;
+  min-width: 90px;
+}
+.continer {
+  padding-right: 8.5%;
+  padding-left: 8.5%;
+  margin-right: auto;
+  max-width: 75%;
+  .chat_box {
+    background-color: white;
+    padding: 9px;
+    padding-bottom: 2px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 1px 0.5px rgba(160, 160, 160, 0.555);
+    .chat_text {
+      text-align: start;
+      white-space: pre-line;
+      font-size: 14.2px;
+      // text-overflow: ellipsis;
+      overflow: hidden;
+      overflow-wrap: break-word;
+    }
+    .chat_date {
+      display: flex;
+      justify-content: right;
+      margin-top: 8px;
+      .date_text {
+        font-size: 11px;
+        color: #667781;
+        margin-left: 10px;
+      }
+      .icon_v {
+        color: #8696a0;
+        margin-top: -8px;
+        margin-left: 5px;
+      }
+    }
+    .chat_peak {
+      position: absolute;
+      top: 0px;
+      left: -8px;
+      // right: auto;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 10px solid white;
+      display: none;
+    }
+  }
+}

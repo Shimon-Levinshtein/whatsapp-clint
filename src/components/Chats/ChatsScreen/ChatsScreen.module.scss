@@ -1,0 +1,103 @@
+.continer {
+  position: relative;
+  height: calc(100vh - 56px);
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  background-color: #e3ebf0;
+  .empty_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-width: 450px;
+    overflow-y: auto;
+    height: calc(100vh - 56px);
+    padding-top: 62px;
+    padding-bottom: 62px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .empty_box_text {
+        font-size: 32px;
+        margin: 50px;
+        color: gray;
+    }
+  }
+  .box {
+    width: 100%;
+    min-width: 450px;
+    max-height: calc(100vh - 56px);
+    padding-top: 62px;
+    padding-bottom: 62px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    header {
+      background: rgb(245, 245, 245);
+      position: absolute;
+      width: 100%;
+      top: 0px;
+      padding-left: 16px;
+      padding-right: 16px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+      z-index: 2;
+      .header_img {
+        width: 45px;
+        height: 45px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 15px;
+        img,
+        svg {
+          width: 45px;
+          height: 45px;
+          object-fit: cover;
+          border-radius: 45px;
+        }
+      }
+      .header_name {
+        display: flex;
+        flex-grow: 1;
+        overflow: hidden;
+        width: 100%;
+        span {
+          font-size: 16px;
+          visibility: visible;
+          overflow-y: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          display: inline-block;
+          flex-grow: 1;
+          overflow-x: hidden;
+          position: relative;
+          text-align: left;
+        }
+      }
+    }
+    .message {
+      background-color: white;
+      padding: 5px 12px 6px;
+      text-align: center;
+      border-radius: 8px;
+      width: fit-content;
+      margin-top: 20px;
+      margin-bottom: 12px;
+      font-size: 13px;
+      color: #54656f;
+    }
+    footer {
+      background: rgb(245, 245, 245);
+      position: absolute;
+      width: 100%;
+      bottom: 0px;
+      height: 60px;
+    }
+  }
+}
