@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { documentSvg, imageSvg, multiVcardSvg, pttSvg, stickerSvg, userImgSvg, videoSvg, vRedetOneSvg, vRedetSvg } from '../svgs';
 import moment from 'moment';
 import { addToFocusChats } from '../../../actions/chatsData';
+import { socket } from '../../../socket/socketConnection';
 
 
 const ChatsList = props => {
@@ -34,6 +35,9 @@ const ChatsList = props => {
   };
 
   const onClickChat = data => {
+    console.log(data);
+    socket.emit(`get_chats_by_chatId_id:${props.userId}`, data.id._serialized);
+
     props.addToFocusChats(data);
   };
 
@@ -111,7 +115,9 @@ const ChatsList = props => {
 
 const mapStateToProps = state => {
   return {
-    chatsData: state.chatsData
+    chatsData: state.chatsData,
+    userId: state.userData.userId,
+
   }
 }
 export default connect(mapStateToProps, { addToFocusChats })(ChatsList);

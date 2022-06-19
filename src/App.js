@@ -23,7 +23,7 @@ import UserEvents from './components/UserEvents/UserEvents';
 import { deleteEventLocal, getUserEvents } from './actions/events';
 import { socket } from './socket/socketConnection';
 import io from "socket.io-client";
-import { updateChats } from './actions/chatsData';
+import { updateChats, updateSingleChat } from './actions/chatsData';
 import Chats from './components/Chats/Chats';
 
 
@@ -123,4 +123,5 @@ export default connect(mapStateToProps, {
   getUserEvents,
   deleteEventLocal,
   updateChats,
+  updateSingleChat,
 })(App);

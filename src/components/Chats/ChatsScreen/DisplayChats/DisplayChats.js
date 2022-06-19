@@ -3,6 +3,7 @@ import styles from "./DisplayChats.module.scss";
 import { connect } from 'react-redux';
 import { documentSvg, imageSvg, multiVcardSvg, pttSvg, stickerSvg, userImgSvg, videoSvg, vRedetOneSvg, vRedetSvg } from '../../svgs';
 import moment from 'moment';
+import Loading from '../../../../assets/images/Loading.gif';
 
 
 const DisplayChats = props => {
@@ -44,16 +45,16 @@ const DisplayChats = props => {
             </div>
           </div>
         )
-        break;
       case 'document':
-        break;
-      case 'image':
         return (
-          <div className={styles.chat_box} style={rulStyle} onClick={() => console.log(data)}>
+          <div className={styles.image_box} style={rulStyle} onClick={() => console.log(data)}>
             <div className={styles.chat_peak} style={peakStyle} />
-            <div dir='auto' className={styles.chat_text}>
-              {/* {data.body} */}
-              **********************
+            <div className={styles.chat_img}>
+              PDF
+              {/* {data.media ? 
+              <img src={`data:${data.media.mimetype};base64, ${data.media.data}`} />:
+              <img src={Loading} />
+              } */}
             </div>
             <div className={styles.chat_date}>
               <div className={styles.date_text}>
@@ -66,7 +67,27 @@ const DisplayChats = props => {
             </div>
           </div>
         )
-        break;
+      case 'image':
+        return (
+          <div className={styles.image_box} style={rulStyle} onClick={() => console.log(data)}>
+            <div className={styles.chat_peak} style={peakStyle} />
+            <div className={styles.chat_img}>
+              {data.media ? 
+              <img src={`data:${data.media.mimetype};base64, ${data.media.data}`} />:
+              <img src={Loading} />
+              }
+            </div>
+            <div className={styles.chat_date}>
+              <div className={styles.date_text}>
+                {data.displayDate}
+              </div>
+              <div className={styles.icon_v} style={data?.ack >= 3 ? { color: '#53bdeb' } : {}}>
+                {data?.fromMe && data?.ack >= 2 ? vRedetSvg() : ''}
+                {data?.fromMe && data?.ack === 1 ? vRedetOneSvg() : ''}
+              </div>
+            </div>
+          </div>
+        )
       case 'ptt':
         break;
       case 'video':
