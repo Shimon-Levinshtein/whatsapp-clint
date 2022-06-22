@@ -8,6 +8,7 @@ exports.loadWhatsAppData = (userId, props) => {
     });
     socket.emit(`request_chats_id:${userId}`);
     socket.on(`response_chats_id:${userId}`, data => {
+        console.log(data);
         props.updateChats(data.chats);
     });
     socket.on(`response_chats_by_chatId_id:${userId}`, data => {

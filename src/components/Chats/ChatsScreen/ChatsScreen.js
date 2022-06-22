@@ -10,7 +10,9 @@ import { imgSvg } from './svgs';
 const ChatsScreen = props => {
 
   const focusChats = props.focusChats;
-  const focusChatsArr = props.focusChats?.chats?.map(item => {
+  const focusChatsArr = props.focusChats?.chats
+  ?.sort(({ timestamp: a }, { timestamp: b }) => a - b )
+  .map(item => {
     const date = new Date();
     date.setTime(item.timestamp + '000');
     let displayDate = moment(date).format('DD/MM/YYYY');
@@ -45,7 +47,7 @@ const ChatsScreen = props => {
         <div ref={scrollRef} className={styles.box}>
           <header>
             <div className={styles.header_img}>
-              {focusChats.imgUrl ? <img src={focusChats.imgUrl} /> :
+              {focusChats.imageUrl ? <img src={focusChats.imageUrl} /> :
                 userImgSvg()}
             </div>
             <div className={styles.header_name}>

@@ -87,7 +87,11 @@
       display: flex;
       justify-content: right;
       align-items: flex-end;
-      background-image: linear-gradient(to top,rgba(0, 0, 0, 0.692),rgba(0, 0, 0, 0));
+      background-image: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.692),
+        rgba(0, 0, 0, 0)
+      );
       height: 28px;
       position: absolute;
       bottom: 3px;
@@ -97,6 +101,57 @@
       .date_text {
         font-size: 11px;
         color: white;
+        margin-left: 10px;
+      }
+      .icon_v {
+        color: #8696a0;
+        margin-top: -8px;
+        margin-left: 5px;
+      }
+    }
+    .chat_peak {
+      position: absolute;
+      top: 0px;
+      left: -8px;
+      // right: auto;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 10px solid white;
+      display: none;
+    }
+  }
+  .document_box {
+    background-color: white;
+    padding: 3px;
+    padding-bottom: 2px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 1px 0.5px rgba(160, 160, 160, 0.555);
+    .chat_document {
+      border-radius: 8px;
+      min-width: 330px;
+      padding: 13px 19px 13px 19px;
+      background-color: #6677812a;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      svg {
+        font-size: 30px;
+        margin-right: 10px;
+        path {
+          stroke: #667781;
+        }
+      }
+    }
+    .chat_date {
+      display: flex;
+      justify-content: right;
+      margin-top: 8px;
+      .date_text {
+        font-size: 11px;
+        color: #667781;
         margin-left: 10px;
       }
       .icon_v {

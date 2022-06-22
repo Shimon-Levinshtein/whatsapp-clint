@@ -61,7 +61,7 @@ const ChatsList = props => {
         .map((chat, index) => (
           <div key={index} className={styles.chat_item_box} onClick={() => onClickChat(chat)}>
             <div className={styles.chat_item_list_img}>
-              {chat.imgUrl ? <img src={chat.imgUrl} /> :
+              {chat.imageUrl ? <img src={chat.imageUrl} /> :
                 userImgSvg()}
             </div>
             <div className={styles.item_right}>
