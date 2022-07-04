@@ -122,6 +122,67 @@
       display: none;
     }
   }
+  .video_box {
+    background-color: white;
+    padding: 3px;
+    // padding-bottom: 2px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 1px 0.5px rgba(160, 160, 160, 0.555);
+    .chat_video {
+      height: 240px;
+      width: 240px;
+      min-width: 82px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      overflow: hidden;
+      video {
+        width: 240px;
+        height: 240px;
+        object-fit: cover;
+      }
+    }
+    .chat_date {
+      display: flex;
+      justify-content: right;
+      align-items: flex-end;
+      background-image: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.692),
+        rgba(0, 0, 0, 0)
+      );
+      height: 28px;
+      position: absolute;
+      bottom: 3px;
+      width: calc(100% - 6px);
+      border-radius: 0px 0px 8px 8px;
+      left: 3px;
+      .date_text {
+        font-size: 11px;
+        color: white;
+        margin-left: 10px;
+      }
+      .icon_v {
+        color: #8696a0;
+        margin-top: -8px;
+        margin-left: 5px;
+      }
+    }
+    .chat_peak {
+      position: absolute;
+      top: 0px;
+      left: -8px;
+      // right: auto;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 10px solid white;
+      display: none;
+    }
+  }
   .document_box {
     background-color: white;
     padding: 3px;
@@ -158,6 +219,76 @@
         color: #8696a0;
         margin-top: -8px;
         margin-left: 5px;
+      }
+    }
+    .chat_peak {
+      position: absolute;
+      top: 0px;
+      left: -8px;
+      // right: auto;
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 10px solid white;
+      display: none;
+    }
+  }
+  .ptt_box {
+    background-color: white;
+    padding: 6px;
+    padding-bottom: 2px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 1px 0.5px rgba(160, 160, 160, 0.555);
+    .audio_box {
+      display: flex;
+      align-items: center;
+      .audio_img {
+        img {
+          width: 55px;
+          height: 55px;
+          border-radius: 55px;
+          object-fit: cover;
+          object-position: center;
+          // margin-right: 15px;
+        }
+      }
+      .audio {
+        display: flex;
+        flex-direction: column;
+        audio {
+          width: 246px;
+          height: 37px;
+          margin-top: 10px;
+          &::-webkit-media-controls-enclosure {
+            background-color: rgba(255, 255, 255, 0);
+          }
+          &::-webkit-media-controls-play-button {
+            transform: scale(1.8);
+          }
+          &::-webkit-media-controls-current-time-display {
+            display: none;
+          }
+          &::-webkit-media-controls-time-remaining-display {
+            display: none;
+          }
+        }
+        .chat_date {
+          display: flex;
+          justify-content: right;
+          margin-top: 2px;
+          .date_text {
+            font-size: 11px;
+            color: #667781;
+            margin-left: 10px;
+          }
+          .icon_v {
+            color: #8696a0;
+            margin-top: -8px;
+            margin-left: 5px;
+          }
+        }
       }
     }
     .chat_peak {

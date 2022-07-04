@@ -4,7 +4,7 @@ exports.loadWhatsAppData = (userId, props) => {
 
     socket.emit(`request_contacts_id:${userId}`);
     socket.on(`response_contacts_id:${userId}`, data => {
-        props.updateContacts(data.contacts);
+        props.updateContacts(data.contacts, data.clientInfo);
     });
     socket.emit(`request_chats_id:${userId}`);
     socket.on(`response_chats_id:${userId}`, data => {

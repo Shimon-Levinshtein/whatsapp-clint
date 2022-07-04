@@ -7,13 +7,18 @@ import ChatsScreen from './ChatsScreen/ChatsScreen';
 
 const Chats = props => {
 
-  const chatsData = props.chatsData.chats;
-
- 
+  const clientInfo = props.clientInfo;
+console.log(clientInfo);
   return (
     <div className={styles.continer}>
       <div className={styles.left}>
-          <ChatsList />
+        <div className={styles.box_user_profile}>
+          <img src={clientInfo?.imageUrl} />
+          <div className={styles.profile_text}>
+          {clientInfo?.pushname}
+          </div>
+        </div>
+        <ChatsList />
       </div>
       <div className={styles.right}>
         <ChatsScreen />
@@ -25,7 +30,7 @@ const Chats = props => {
 
 const mapStateToProps = state => {
   return {
-    chatsData: state.chatsData
+    clientInfo: state.whatsappData.clientInfo
   }
 }
 export default connect(mapStateToProps, {})(Chats);

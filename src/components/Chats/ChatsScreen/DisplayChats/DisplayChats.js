@@ -13,6 +13,7 @@ const DisplayChats = props => {
   const dataBefore = props.dataBefore;
   const dataAfter = props.dataAfter;
   const today = new Date();
+  const clientInfo = props.clientInfo;
 
   const rulStyle = {
     backgroundColor: data.fromMe ? '#d9fdd3' : 'white',
@@ -25,7 +26,7 @@ const DisplayChats = props => {
     left: !data.fromMe ? '-8px' : 'auto',
   }
 
-  
+
   const downloadDocument = () => {
     // window.open(`data:${data.media.mimetype};base64, ${data.media.data}`);
     let fetchData = `data:${data.media.mimetype};base64, ${data.media.data}`;
@@ -80,9 +81,9 @@ const DisplayChats = props => {
           <div className={styles.image_box} style={rulStyle} onClick={() => console.log(data)}>
             <div className={styles.chat_peak} style={peakStyle} />
             <div className={styles.chat_img}>
-              {data.media && data.media !== 'x' ? 
-              <img src={`data:${data.media.mimetype};base64, ${data.media.data}`} />:
-              data.media !== 'x' ? <img src={Loading} /> : 'Photo Unavailable' 
+              {data.media && data.media !== 'x' ?
+                <img src={`data:${data.media.mimetype};base64, ${data.media.data}`} /> :
+                data.media !== 'x' ? <img src={Loading} /> : 'Photo Unavailable'
               }
             </div>
             <div className={styles.chat_date}>
@@ -97,20 +98,73 @@ const DisplayChats = props => {
           </div>
         )
       case 'ptt':
-        break;
+        return (
+          <div className={styles.ptt_box} style={rulStyle} onClick={() => console.log(data)}>
+            <div className={styles.chat_peak} style={peakStyle} />
+            <div className={styles.audio_box}>
+              <div className={styles.audio_img}>
+                <img src={clientInfo?.imageUrl} />
+              </div>
+              <div className={styles.audio}>
+                {data.media && data.media !== 'x' ?
+                  <audio controls>
+                    <source src={`data:${data.media.mimetype};base64, ${data.media.data}`} type={data.media.mimetype} />
+                    <source src="horse.mp3" type="audio/mpeg" />
+                  </audio>
+                  :
+                  data.media !== 'x' ? <img src={Loading} /> : 'Audio Unavailable'
+                }
+                <div className={styles.chat_date}>
+                  <div className={styles.date_text}>
+                    {data.displayDate}
+                  </div>
+                  <div className={styles.icon_v} style={data?.ack >= 3 ? { color: '#53bdeb' } : {}}>
+                    {data?.fromMe && data?.ack >= 2 ? vRedetSvg() : ''}
+                    {data?.fromMe && data?.ack === 1 ? vRedetOneSvg() : ''}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
       case 'video':
-        break;
+        return (
+          <div className={styles.video_box} style={rulStyle} onClick={() => console.log(data)}>
+            <div className={styles.chat_peak} style={peakStyle} />
+            <div className={styles.chat_video}>
+              {data.media && data.media !== 'x' ?
+                <video controls>
+                <source src={`data:${data.media.mimetype};base64, ${data.media.data}`} type={data.media.mimetype} />
+              </video> :
+                data.media !== 'x' ? <img src={Loading} /> : 'Video Unavailable'
+              }
+            </div>
+            <div className={styles.chat_date}>
+              <div className={styles.vidio_text}>
+                {data.displayDate}
+              </div>
+              <div className={styles.date_text}>
+                {data.displayDate}
+              </div>
+              <div className={styles.icon_v} style={data?.ack >= 3 ? { color: '#53bdeb' } : {}}>
+                {data?.fromMe && data?.ack >= 2 ? vRedetSvg() : ''}
+                {data?.fromMe && data?.ack === 1 ? vRedetOneSvg() : ''}
+              </div>
+            </div>
+          </div>
+        )
       case 'sticker':
-        break;
+
       case 'multi_vcard':
-        break;
+
       default:
         return (
           <div className={styles.chat_box} style={rulStyle} onClick={() => console.log(data)}>
             <div className={styles.chat_peak} style={peakStyle} />
             <div dir='auto' className={styles.chat_text}>
+              {data.type}
+              xxxxxxxxxxx
               {data.body}
-              *****************
             </div>
             <div className={styles.chat_date}>
               <div className={styles.date_text}>
@@ -148,6 +202,7 @@ const DisplayChats = props => {
 
 const mapStateToProps = state => {
   return {
+    clientInfo: state.whatsappData.clientInfo
   }
 }
 export default connect(mapStateToProps, {})(DisplayChats);
